@@ -1,1 +1,1 @@
-npm install ..\biz & npm install ..\model & node app.js
+npm install ..\model & npm install ..\biz & node app.js
