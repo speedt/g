@@ -65,7 +65,7 @@ local current_bullet_level = redis.call('HGET', 'prop::user::'.. user_id, 'curre
 
 -- 判断子弹的等级对应的消耗是否存在
 
-local bullet_consume = redis.call('HGET', 'cfg', 'bullet_lv_'.. current_bullet_level ..'_consume');
+local bullet_consume = redis.call('HGET', 'cfg', 'bullet_consume_lv_'.. current_bullet_level);
 
 bullet_consume = tonumber(bullet_consume);
 

@@ -20,6 +20,18 @@ const redis = require('emag.db').redis;
 
 const _ = require('underscore');
 
+(() => {
+  var sql = 'SELECT a.* FROM s_cfg a WHERE a.type_=? ORDER BY a.title ASC';
+
+  exports.findByType = function(type, cb){
+
+    mysql.query(sql, [type], (err, docs) => {
+      if(err) return cb(err);
+      cb(null, docs);
+    });
+  };
+})();
+
 /**
  *
  * @return

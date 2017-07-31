@@ -14,6 +14,8 @@ const fishjoy = require('../controllers/fishjoy');
 
 module.exports = function(app){
 
+  app.get('/manage/cfg/bullet$', cfg.bullet);
+
   app.post('/manage/user/resetPwd$', manager.login_validate, user.resetPwd);
   app.post('/manage/user/del$', manager.login_validate, user.del);
   app.post('/manage/user/edit$', manager.login_validate, user.edit);

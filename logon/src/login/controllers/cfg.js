@@ -35,3 +35,38 @@ exports.edit = function(req, res, next){
     res.send({});
   });
 };
+
+exports.bullet = function(req, res, next){
+
+  var p1 = new Promise((resolve, reject) => {
+
+    biz.cfg.findByType('bullet_consume', function (err, docs){
+      if(err) return reject(err);
+      resolve(docs);
+    });
+  });
+
+  var p2 = new Promise((resolve, reject) => {
+
+    biz.cfg.findByType('bullet_range', function (err, docs){
+      if(err) return reject(err);
+      resolve(docs);
+    });
+  });
+
+  var p3 = new Promise((resolve, reject) => {
+
+    biz.cfg.findByType('bullet_style', function (err, docs){
+      if(err) return reject(err);
+      resolve(docs);
+    });
+  });
+
+  Promise.all([p1, p2, p3]).then(values => {
+    var bullet_consume = values[0].data;
+    var bullet_range   = values[1].data;
+    var bullet_style   = values[2].data;
+
+    res.send([bullet_consume, bullet_range, bullet_style]);
+  }).catch(next);
+};
