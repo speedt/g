@@ -78,7 +78,20 @@ Promise.all([p1, p2, p3]).then(values => {
   exports.fishType  = values[1].data;
   exports.fishFixed = values[2].data;
 
-  logger.info('load config: success');
+  const biz = require('emag.biz');
+
+  biz.cfg.findAll(null, function (err, docs){
+    if(err) return logger.error('load config:', err);
+
+    var sys = exports.sys = {};
+
+    for(let i of docs){
+      sys[i.type_ +'_'+ i.key_] = i.value_;
+    }
+
+    logger.info('load config: success');
+  });
+
 }).catch(function (err){
   logger.error('load config:', err);
   process.exit(1);
