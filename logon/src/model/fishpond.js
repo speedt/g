@@ -134,7 +134,7 @@ pro.blast = function(bullet, fishes, user_info){
 
     logger.debug('blast 1: %j', fish);
 
-    var bullet_info = cfg.bullet[bullet.level - 1];
+    var bullet_info = cfg.sys['bullet_range_lv_'+ bullet.level];
 
     if(!bullet_info) continue;
 
