@@ -63,10 +63,29 @@ exports.bullet = function(req, res, next){
   });
 
   Promise.all([p1, p2, p3]).then(values => {
-    var bullet_consume = values[0].data;
-    var bullet_range   = values[1].data;
-    var bullet_style   = values[2].data;
 
-    res.send([bullet_consume, bullet_range, bullet_style]);
+    var info = {
+      ver: 124,
+      data: []
+    };
+
+    for(let i of values[0]){
+      var o = { cost: i.value_ - 0 };
+      info.data.push(o);
+    }
+
+    for(let i in values[1]){
+      let o = info.data[i];
+      let range = values[1][i];
+      o['range'] = range.value_ - 0;
+    }
+
+    for(let i in values[2]){
+      let o = info.data[i];
+      let style = values[2][i];
+      o['style'] = style.value_ - 0;
+    }
+
+    res.send(info);
   }).catch(next);
 };

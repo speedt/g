@@ -14,8 +14,6 @@ const fishjoy = require('../controllers/fishjoy');
 
 module.exports = function(app){
 
-  app.get('/manage/cfg/bullet$', cfg.bullet);
-
   app.post('/manage/user/resetPwd$', manager.login_validate, user.resetPwd);
   app.post('/manage/user/del$', manager.login_validate, user.del);
   app.post('/manage/user/edit$', manager.login_validate, user.edit);
@@ -46,6 +44,8 @@ module.exports = function(app){
   app.post('/user/login$', user.login);
 
   app.post('/user/register$', user.register);
+
+  app.get('/cfg/bullet$', cfg.bullet);
 
   app.get('/', fishjoy.indexUI);
 };
