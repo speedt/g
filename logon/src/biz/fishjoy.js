@@ -453,6 +453,7 @@ exports.blast = function(server_id, channel_id, blast, cb){
         if(err) return cb(err);
         if(!_.isArray(doc)) return cb(null, doc);
 
+        // [用户id, 鱼id, 鱼的价值, 用户现有钱, 礼券]
         var result = [user_info.id, fish.id, fish.money, doc[1], fish.gift];
         logger.debug('dead fish: %j', result);
 
@@ -571,7 +572,7 @@ exports.blast = function(server_id, channel_id, blast, cb){
 
 (() => {
   const numkeys = 3;
-  const sha1 = '5fc4a187f07c68cdc838a27ece32a63c1eecf1e5';
+  const sha1 = '1b880c8a1e00a1927b3786740ad02b518e89813f';
   const seconds = 60;
 
   /**
