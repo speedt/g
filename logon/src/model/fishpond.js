@@ -120,7 +120,7 @@ pro.refresh = function(){
   return self._fishes;
 }
 
-pro.blast = function(bullet, fishes, user_info, group_info){
+pro.blast = function(bullet, fishes, user_info){
 
   logger.debug(user_info);
   logger.debug(group_info);
