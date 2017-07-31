@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package gws;
+
+option java_package = "net.foreworld.gws.protobuf";
+option java_outer_classname = "Common";
+
+message SenderProtobuf {
+  string server_id = 1;
+  string channel_id = 2;
+  RequestProtobuf data = 3;
+}
+
+message ReceiverProtobuf {
+  string receiver = 1;
+  ResponseProtobuf data = 2;
+}
+
+message RequestProtobuf {
+  uint32 version = 1;
+  uint32 method = 2;
+  uint64 seqId = 3;
+  uint64 timestamp = 4;
+  bytes data = 5;
+}
+
+message ResponseProtobuf {
+  uint32 version = 1;
+  uint32 method = 2;
+  uint64 seqId = 3;
+  uint64 timestamp = 4;
+  bytes data = 5;
+  ErrorProtobuf error = 6;
+}
+
+message ErrorProtobuf {
+  string code = 1;
+  string msg = 2;
+}
+
+message PrimaryKeyProtobuf {
+  string id = 1;
+}
+
+message DataProtobuf {
+  string body = 1;
+}
