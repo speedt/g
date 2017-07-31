@@ -54,35 +54,43 @@ gift  = tonumber(gift);
 
 -- 用户现有总金币数
 
-local user_score = redis.call('HGET', 'prop::user::'.. user_id, 'score');
+local user_score = redis.call('HINCRBY', 'prop::user::'.. user_id, 'score', money);
 
-user_score = tonumber(user_score) + money;
+-- local user_score = redis.call('HGET', 'prop::user::'.. user_id, 'score');
 
-redis.call('HSET', 'prop::user::'.. user_id, 'score', user_score);
+-- user_score = tonumber(user_score) + money;
+
+-- redis.call('HSET', 'prop::user::'.. user_id, 'score', user_score);
 
 -- 所在组获得的金币数
 
-local group_gain_score = redis.call('HGET', 'prop::user::'.. user_id, 'group_gain_score');
+local group_gain_score = redis.call('HINCRBY', 'prop::user::'.. user_id, 'group_gain_score', money);
 
-group_gain_score = tonumber(group_gain_score) + money;
+-- local group_gain_score = redis.call('HGET', 'prop::user::'.. user_id, 'group_gain_score');
 
-redis.call('HSET', 'prop::user::'.. user_id, 'group_gain_score', group_gain_score);
+-- group_gain_score = tonumber(group_gain_score) + money;
+
+-- redis.call('HSET', 'prop::user::'.. user_id, 'group_gain_score', group_gain_score);
 
 -- 用户现有礼券数
 
-local gift_count = redis.call('HGET', 'prop::user::'.. user_id, 'gift_count');
+local gift_count = redis.call('HINCRBY', 'prop::user::'.. user_id, 'gift_count', gift);
 
-gift_count = tonumber(gift_count) + gift;
+-- local gift_count = redis.call('HGET', 'prop::user::'.. user_id, 'gift_count');
 
-redis.call('HSET', 'prop::user::'.. user_id, 'gift_count', gift_count);
+-- gift_count = tonumber(gift_count) + gift;
+
+-- redis.call('HSET', 'prop::user::'.. user_id, 'gift_count', gift_count);
 
 -- 历史以来获得的金币数
 
-local gain_score_count = redis.call('HGET', 'prop::user::'.. user_id, 'gain_score_count');
+local gain_score_count = redis.call('HINCRBY', 'prop::user::'.. user_id, 'gain_score_count', money);
 
-gain_score_count = tonumber(gain_score_count) + money;
+-- local gain_score_count = redis.call('HGET', 'prop::user::'.. user_id, 'gain_score_count');
 
-redis.call('HSET', 'prop::user::'.. user_id, 'gain_score_count', gain_score_count);
+-- gain_score_count = tonumber(gain_score_count) + money;
+
+-- redis.call('HSET', 'prop::user::'.. user_id, 'gain_score_count', gain_score_count);
 
 -- 
 

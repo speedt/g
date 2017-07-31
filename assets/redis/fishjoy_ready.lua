@@ -90,7 +90,7 @@ local group_pos = redis.call('HGETALL', 'pos::group::'.. group_type ..'::'.. gro
 
 local group_info = redis.call('HGETALL', 'prop::group::'.. group_id);
 
--- 为用户设置当前使用的子弹等级
+-- 为用户设置当前房间允许的子弹最小等级
 
 local bullet_lv_min = redis.call('HGET', 'cfg', 'group_type_'.. group_type ..'_bullet_lv_min');
 

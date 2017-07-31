@@ -48,8 +48,8 @@ if (false == idle_group) then
   -- local consume_freeze   = redis.call('HGET', 'cfg', 'group_type_'.. group_type ..'_consume_freeze');
   -- local profit_loss_rate = redis.call('HGET', 'cfg', 'group_type_'.. group_type ..'_profit_loss_rate');
 
-  redis.call('HMSET', 'prop::group::'.. group_uuid, 'id',               group_uuid,
-                                                    'type',             group_type);
+  redis.call('HMSET', 'prop::group::'.. group_uuid, 'id',   group_uuid,
+                                                    'type', group_type);
 
   -- redis.call('HMSET', 'prop::group::'.. group_uuid, 'id',               group_uuid,
   --                                                   'type',             group_type,

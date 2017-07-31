@@ -46,19 +46,23 @@ redis.call('HSET', 'prop::user::'.. user_id, 'score', user_score);
 
 -- 所在组消耗的金币数
 
-local group_consume_score = redis.call('HGET', 'prop::user::'.. user_id, 'group_consume_score');
+redis.call('HINCRBY', 'prop::user::'.. user_id, 'group_consume_score', tool_consume);
 
-group_consume_score = tonumber(group_consume_score) + tool_consume;
+-- local group_consume_score = redis.call('HGET', 'prop::user::'.. user_id, 'group_consume_score');
 
-redis.call('HSET', 'prop::user::'.. user_id, 'group_consume_score', group_consume_score);
+-- group_consume_score = tonumber(group_consume_score) + tool_consume;
+
+-- redis.call('HSET', 'prop::user::'.. user_id, 'group_consume_score', group_consume_score);
 
 -- 历史以来消耗的金币数
 
-local bullet_consume_count = redis.call('HGET', 'prop::user::'.. user_id, 'bullet_consume_count');
+redis.call('HINCRBY', 'prop::user::'.. user_id, 'bullet_consume_count', tool_consume);
 
-bullet_consume_count = tonumber(bullet_consume_count) + tool_consume;
+-- local bullet_consume_count = redis.call('HGET', 'prop::user::'.. user_id, 'bullet_consume_count');
 
-redis.call('HSET', 'prop::user::'.. user_id, 'bullet_consume_count', bullet_consume_count);
+-- bullet_consume_count = tonumber(bullet_consume_count) + tool_consume;
+
+-- redis.call('HSET', 'prop::user::'.. user_id, 'bullet_consume_count', bullet_consume_count);
 
 -- 
 
