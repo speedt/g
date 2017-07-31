@@ -357,7 +357,7 @@ const logger = log4js.getLogger('fishjoy');
   }
 
   const numkeys = 3;
-  const sha1 = 'b3752bef888945276aa4f3546461dbb2b03c1aee';
+  const sha1 = '938ab47dbbcb4c466b5d217c2bd65585966ee15e';
 
   exports.ready = function(server_id, channel_id, ready, refresh, scene, unfreeze){
 
@@ -372,7 +372,7 @@ const logger = log4js.getLogger('fishjoy');
 
 (() => {
   const numkeys = 4;
-  const sha1 = 'ac60e0435402f89ba69d29b5326830b9be82c4ca';
+  const sha1 = '59b9e8649e934d0e0697d581455112bc88c98ebd';
   const seconds = 22;
 
   /**
@@ -494,7 +494,7 @@ exports.blast = function(server_id, channel_id, blast, cb){
 
 (() => {
   const numkeys = 3;
-  const sha1 = '7fcc8cbdc1672bbd2f123e218c37c80d607648cc';
+  const sha1 = 'd124d7b6e138bfa3b1d78693d0b78cd9bdbe9ff8';
 
   /**
    * 冰冻
@@ -552,7 +552,7 @@ exports.blast = function(server_id, channel_id, blast, cb){
 
 (() => {
   const numkeys = 4;
-  const sha1 = '96d65399e3f50cf8c24e33295e1b9d818ecd2995';
+  const sha1 = 'ce43daa29f7723df93f36ca834c86476e02e28f6';
 
   /**
    * 获取子弹信息
@@ -574,7 +574,7 @@ exports.blast = function(server_id, channel_id, blast, cb){
 
 (() => {
   const numkeys = 3;
-  const sha1 = 'c43954ffd5d0b1e11de80334974d6d33395d47b1';
+  const sha1 = '5fc4a187f07c68cdc838a27ece32a63c1eecf1e5';
   const seconds = 60;
 
   /**

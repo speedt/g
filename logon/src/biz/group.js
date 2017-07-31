@@ -21,7 +21,7 @@ const _ = require('underscore');
 
 (() => {
   const numkeys = 5;
-  const sha1 = '64d8b24bfedcb90c6a8e1736fb2c6fe9b5d45bef';
+  const sha1 = 'e17e6be592cb2329e3bbeead122881f678741278';
 
   exports.search = function(server_id, channel_id, group_type, cb){
 
