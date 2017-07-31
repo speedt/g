@@ -30,7 +30,7 @@ var pro = Method.prototype;
 pro.init = function(opts){
   var self      = this;
   self.id       = opts.id;
-  self.capacity = opts.capacity - 0;
+  self.capacity = cfg.sys['group_type_'+ opts.type +'_capacity'] - 0;
   self.type     = opts.type;
   self._pause   = 0;
   return self;
@@ -168,7 +168,7 @@ pro.blast = function(bullet, fishes, user_info){
 
     var arithmetic  = user_info.score / (user_info.score + user_info.group_consume_score - user_info.group_gain_score);
     var lucky       = cfg.sys['group_type_'+ this.type +'_profit_loss_rate'] - arithmetic;
-    var probability = cfg.fishType[fish.type].dead_probability + user_info.success_rate_capture;
+    var probability = (cfg.fishType[fish.type].dead_probability - 0) + (user_info.success_rate_capture - 0);
     probability     = probability + (1 - probability) * lucky;
 
     var r = Math.random();
@@ -186,8 +186,8 @@ pro.blast = function(bullet, fishes, user_info){
     result.push({
       id:     fish.id,
       type:   fish.type,
-      money:  cfg.fishType[fish.type].money * bullet.consume,
-      gift:   gift_count,
+      money:  parseInt((cfg.fishType[fish.type].money - 0) * (bullet.consume - 0)),
+      gift:   parseInt(gift_count),
       tool_1: 0,
       tool_2: 0,
     });

@@ -584,9 +584,10 @@ exports.blast = function(server_id, channel_id, blast, cb){
 
     if(!user_id)   return;
     if(!fish_id)   return;
-    if(!fish_type) return;
-    if(!money)     return;
-    if(!gift)      return;
+
+    if(!_.isNumber(fish_type)) return;
+    if(!_.isNumber(money))     return;
+    if(!_.isNumber(gift))      return;
 
     redis.evalsha(sha1, numkeys, conf.redis.database, user_id, fish_id,
       seconds, fish_type, money, gift, _.now(), (err, doc) => {
