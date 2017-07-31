@@ -73,36 +73,12 @@ var p3 = new Promise((resolve, reject) => {
   }).catch(reject);
 });
 
-var p4 = new Promise((resolve, reject) => {
-  ajax(http.request, {
-    host: conf.app.resHost,
-    port: 80,
-    path: '/assets/cfg.bullet.json',
-    method: 'GET',
-  }, null, null).then(html => {
-    resolve(JSON.parse(html));
-  }).catch(reject);
-});
-
-var p5 = new Promise((resolve, reject) => {
-  ajax(http.request, {
-    host: conf.app.resHost,
-    port: 80,
-    path: '/assets/cfg.tool.json',
-    method: 'GET',
-  }, null, null).then(html => {
-    resolve(JSON.parse(html));
-  }).catch(reject);
-});
-
-Promise.all([p1, p2, p3, p4, p5]).then(values => {
+Promise.all([p1, p2, p3]).then(values => {
   exports.fishTrail = values[0].data;
   exports.fishType  = values[1].data;
   exports.fishFixed = values[2].data;
-  exports.bullet    = values[3].data;
-  exports.tool      = values[4].data;
 
-  logger.info('load config success');
+  logger.info('load config: success');
 }).catch(function (err){
   logger.error('load config:', err);
   process.exit(1);
