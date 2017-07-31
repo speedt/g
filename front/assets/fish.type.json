@@ -2,183 +2,243 @@
 	"ver": 124,
 	"data": [{
 		"name": "fish1",
-		"probability": 0.9,
+		"probability": 0.939,
 		"weight": 1,
 		"hp": 2,
 		"loop": true,
-		"dead_probability": 0.2,
+		"dead_probability": 0.8,
 		"money": 2,
 		"tool_probability": 0.1,
-		"tool_max": 4
+		"tool_max": 1
 	}, {
 		"name": "fish2",
-		"probability": 0.81,
+		"probability": 0.869,
 		"weight": 1,
 		"hp": 2,
 		"loop": true,
-		"dead_probability": 0.2,
+		"dead_probability": 0.8,
 		"money": 2,
 		"tool_probability": 0.1,
-		"tool_max": 4
+		"tool_max": 1
 	}, {
 		"name": "fish3",
-		"probability": 0.73,
+		"probability": 0.794,
 		"weight": 3,
-		"hp": 3,
-		"loop": true,
-		"dead_probability": 0.2,
-		"money": 3,
-		"tool_probability": 0.1,
-		"tool_max": 4
-	}, {
-		"name": "fish4",
-		"probability": 0.7,
-		"weight": 4,
 		"hp": 4,
 		"loop": true,
-		"dead_probability": 0.2,
+		"dead_probability": 0.7,
 		"money": 4,
 		"tool_probability": 0.1,
-		"tool_max": 4
+		"tool_max": 2
 	}, {
-		"name": "fish5",
-		"probability": 0.61,
-		"weight": 5,
+		"name": "fish4",
+		"probability": 0.709,
+		"weight": 4,
 		"hp": 5,
 		"loop": true,
-		"dead_probability": 0.2,
+		"dead_probability": 0.7,
 		"money": 5,
 		"tool_probability": 0.1,
-		"tool_max": 4
+		"tool_max": 2
 	}, {
-		"name": "fish6",
-		"probability": 0.54,
-		"weight": 6,
+		"name": "fish5",
+		"probability": 0.609,
+		"weight": 4,
 		"hp": 6,
 		"loop": true,
-		"dead_probability": 0.2,
+		"dead_probability": 0.7,
 		"money": 6,
 		"tool_probability": 0.1,
-		"tool_max": 4
+		"tool_max": 3
 	}, {
-		"name": "fish7",
-		"probability": 0.49,
-		"weight": 8,
-		"hp": 6,
+		"name": "fish6",
+		"probability": 0.524,
+		"weight": 5,
+		"hp": 7,
 		"loop": true,
-		"dead_probability": 0.2,
+		"dead_probability": 0.7,
 		"money": 7,
 		"tool_probability": 0.1,
-		"tool_max": 4
+		"tool_max": 3
 	}, {
-		"name": "fish8",
-		"probability": 0.43,
-		"weight": 9,
+		"name": "fish7",
+		"probability": 0.444,
+		"weight": 8,
 		"hp": 8,
 		"loop": true,
-		"dead_probability": 0.2,
+		"dead_probability": 0.6,
 		"money": 8,
 		"tool_probability": 0.1,
 		"tool_max": 4
 	}, {
-		"name": "fish9",
-		"probability": 0.37,
-		"weight": 8,
-		"hp": 8,
+		"name": "fish8",
+		"probability": 0.382,
+		"weight": 9,
+		"hp": 10,
 		"loop": true,
-		"dead_probability": 0.2,
+		"dead_probability": 0.55,
 		"money": 9,
 		"tool_probability": 0.1,
 		"tool_max": 4
 	}, {
-		"name": "fish10",
-		"probability": 0.32,
+		"name": "fish9",
+		"probability": 0.327,
 		"weight": 8,
-		"hp": 10,
+		"hp": 12,
 		"loop": true,
-		"dead_probability": 0.2,
+		"dead_probability": 0.5,
 		"money": 10,
 		"tool_probability": 0.1,
-		"tool_max": 4
+		"tool_max": 5
 	}, {
-		"name": "fish11",
-		"probability": 0.27,
-		"weight": 9,
-		"hp": 10,
+		"name": "fish10",
+		"probability": 0.277,
+		"weight": 8,
+		"hp": 15,
 		"loop": true,
-		"dead_probability": 0.2,
+		"dead_probability": 0.45,
 		"money": 12,
 		"tool_probability": 0.1,
-		"tool_max": 4
+		"tool_max": 5
+	}, {
+		"name": "fish11",
+		"probability": 0.232,
+		"weight": 9,
+		"hp": 18,
+		"loop": true,
+		"dead_probability": 0.4,
+		"money": 15,
+		"tool_probability": 0.1,
+		"tool_max": 6
 	},{
 		"name": "fish12",
-		"probability": 0.21,
+		"probability": 0.192,
 		"weight": 9,
-		"hp": 10,
+		"hp": 20,
 		"loop": true,
-		"dead_probability": 0.2,
+		"dead_probability": 0.5,
 		"money": 18,
 		"tool_probability": 0.1,
-		"tool_max": 4
+		"tool_max": 6
 	},{
 		"name": "fish13",
-		"probability": 0.16,
+		"probability": 0.157,
 		"weight": 8,
-		"hp": 10,
+		"hp": 22,
 		"loop": true,
-		"dead_probability": 0.2,
-		"money": 10,
+		"dead_probability": 0.5,
+		"money": 20,
 		"tool_probability": 0.1,
-		"tool_max": 4
+		"tool_max": 7
 	},{
 		"name": "fish14",
-		"probability": 0.12,
+		"probability": 0.127,
 		"weight": 12,
-		"hp": 12,
+		"hp": 25,
 		"loop": false,
-		"dead_probability": 0.2,
-		"money": 30,
+		"dead_probability": 0.5,
+		"money": 25,
 		"tool_probability": 0.1,
-		"tool_max": 4
+		"tool_max": 7
 	},{
 		"name": "fish15",
-		"probability": 0.09,
+		"probability": 0.102,
 		"weight": 15,
-		"hp": 13,
+		"hp": 30,
+		"loop": false,
+		"dead_probability": 0.3,
+		"money": 30,
+		"tool_probability": 0.1,
+		"tool_max": 8
+	},{
+		"name": "fish16",
+		"probability": 0.082,
+		"weight": 15,
+		"hp": 38,
 		"loop": false,
 		"dead_probability": 0.2,
 		"money": 40,
 		"tool_probability": 0.1,
-		"tool_max": 4
-	},{
-		"name": "fish16",
-		"probability": 0.06,
-		"weight": 15,
-		"hp": 15,
-		"loop": false,
-		"dead_probability": 0.2,
-		"money": 45,
-		"tool_probability": 0.1,
-		"tool_max": 4
+		"tool_max": 8
 	},{
 		"name": "fish17",
-		"probability": 0.02,
+		"probability": 0.064,
 		"weight": 15,
-		"hp": 15,
+		"hp": 40,
 		"loop": false,
 		"dead_probability": 0.2,
-		"money": 30,
+		"money": 40,
 		"tool_probability": 0.1,
-		"tool_max": 4
+		"tool_max": 9
 	},{
 		"name": "fish18",
-		"probability": 0.0,
-		"weight": 20,
-		"hp": 20,
+		"probability": 0.049,
+		"weight": 18,
+		"hp": 40,
 		"loop": false,
-		"dead_probability": 0.2,
+		"dead_probability": 0.13,
+		"money": 50,
+		"tool_probability": 0.1,
+		"tool_max": 9
+	},{
+		"name": "fish19",
+		"probability": 0.037,
+		"weight": 18,
+		"hp": 46,
+		"loop": false,
+		"dead_probability": 0.055,
+		"money": 80,
+		"tool_probability": 0.1,
+		"tool_max": 10
+	},{
+		"name": "fish20",
+		"probability": 0.028,
+		"weight": 20,
+		"hp": 50,
+		"loop": false,
+		"dead_probability": 0.05,
 		"money": 100,
 		"tool_probability": 0.1,
-		"tool_max": 4
+		"tool_max": 10
+	},{
+		"name": "fish21",
+		"probability": 0.019,
+		"weight": 20,
+		"hp": 55,
+		"loop": false,
+		"dead_probability": 0.03,
+		"money": 100,
+		"tool_probability": 0.1,
+		"tool_max": 12
+	},{
+		"name": "fish22",
+		"probability": 0.011,
+		"weight": 20,
+		"hp": 60,
+		"loop": false,
+		"dead_probability": 0.02,
+		"money": 200,
+		"tool_probability": 0.1,
+		"tool_max": 12
+	},{
+		"name": "fish23",
+		"probability": 0.003,
+		"weight": 20,
+		"hp": 65,
+		"loop": false,
+		"dead_probability": 0.015,
+		"money": 250,
+		"tool_probability": 0.1,
+		"tool_max": 15
+	},{
+		"name": "fish24",
+		"probability": 0.0,
+		"weight": 20,
+		"hp": 70,
+		"loop": false,
+		"dead_probability": 0.007,
+		"money": 500,
+		"tool_probability": 0.1,
+		"tool_max": 20
 	}]
 }

@@ -122,9 +122,6 @@ pro.refresh = function(){
 
 pro.blast = function(bullet, fishes, user_info){
 
-  logger.debug(user_info);
-  logger.debug(group_info);
-
   var self = this;
 
   var result = [];
@@ -153,7 +150,12 @@ pro.blast = function(bullet, fishes, user_info){
 
     if(!s) continue;
 
-    var d = distance(s[0], s[1], bullet.x2, bullet.y2);
+    // 取上一步的位置
+    var s1 = trail_info[fish.step - 1];
+
+    if(!s1) continue;
+
+    var d = distance(s1[0], s1[1], s[0], s[1], bullet.x2, bullet.y2, this.timestamp);   
 
     if(d > bullet_info.range) continue;
 
@@ -164,20 +166,28 @@ pro.blast = function(bullet, fishes, user_info){
       continue;
     }
 
+    var arithmetic  = user_info.score / (user_info.score + user_info.group_consume_score - user_info.group_gain_score);
+    var lucky       = cfg.sys['group_type_'+ this.type +'_profit_loss_rate'] - arithmetic;
+    var probability = cfg.fishType[fish.type].dead_probability + user_info.success_rate_capture;
+    probability     = probability + (1 - probability) * lucky;
+
     var r = Math.random();
 
-    if(!(r < cfg.fishType[fish.type].dead_probability)) continue;
+    if(!(r < probability)) continue;
 
     logger.debug('blast 6: %s', r);
 
     // 根据玩家的幸运值与盈亏比率在进行判断
     // 根据配置表生成特殊物品掉落率
 
+    var gift_count = (Math.random() < cfg.fishType[fish.type].tool_probability) ?
+                      Math.random() * cfg.fishType[fish.type].tool_max : 0;
+
     result.push({
       id:     fish.id,
       type:   fish.type,
       money:  cfg.fishType[fish.type].money * bullet.consume,
-      gift:   0,
+      gift:   gift_count,
       tool_1: 0,
       tool_2: 0,
     });
@@ -190,11 +200,30 @@ pro.blast = function(bullet, fishes, user_info){
   return result;
 };
 
+// /**
+//  * 计算两点间距离
+//  */
+// function distance(x1, y1, x2, y2){
+//   var xdiff = x2 - x1;
+//   var ydiff = y2 - y1;
+//   return Math.abs(Math.pow((xdiff * xdiff + ydiff * ydiff), 0.5));
+// }
+
 /**
  * 计算两点间距离
+ *
+ * @param x1 y1     上一次结点位置(step-1)
+ * @param x2 y2     下一次结点位置(step)
+ * @param bx by     爆炸点位置(客户端传来)
+ * @param last_time 上一次结点位置改变时的时间
+ * @return
  */
-function distance(x1, y1, x2, y2){
-  var xdiff = x2 - x1;
-  var ydiff = y2 - y1;
-  return Math.abs(Math.pow((xdiff * xdiff + ydiff * ydiff), 0.5));
+function distance(x1, y1, x2, y2, bx, by, last_time){
+  var ler = _.now() - last_time;
+  ler = (ler > 0) ? (ler / 300) : 0;
+
+  var fx = x1 + (x2 - x1) * ler;
+  var fy = y1 + (y2 - y1) * ler;
+
+  return Math.sqrt(Math.pow(bx - fx, 2) + Math.pow(by - fy, 2));
 }
