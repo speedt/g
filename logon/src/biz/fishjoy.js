@@ -453,7 +453,7 @@ exports.blast = function(server_id, channel_id, blast, cb){
         if(err) return cb(err);
         if(!_.isArray(doc)) return cb(null, doc);
 
-        var result = [user_info.id, fish.id, fish.money, doc[1]];
+        var result = [user_info.id, fish.id, fish.money, doc[1], fish.gift];
         logger.debug('dead fish: %j', result);
 
         cb(null, [doc[0], result]);
