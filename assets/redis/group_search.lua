@@ -38,27 +38,30 @@ if (false == idle_group) then
 
   -- 为新创建的群组设置群组类型
 
-  local total_visitors   = redis.call('HGET', 'cfg', 'group_type_'.. group_type ..'_total_visitors');
-  local min_run          = redis.call('HGET', 'cfg', 'group_type_'.. group_type ..'_min_run');
-  local capacity         = redis.call('HGET', 'cfg', 'group_type_'.. group_type ..'_capacity');
-  local free_swim_time   = redis.call('HGET', 'cfg', 'group_type_'.. group_type ..'_free_swim_time');
+  -- local total_visitors   = redis.call('HGET', 'cfg', 'group_type_'.. group_type ..'_total_visitors');
+  -- local min_run          = redis.call('HGET', 'cfg', 'group_type_'.. group_type ..'_min_run');
+  -- local capacity         = redis.call('HGET', 'cfg', 'group_type_'.. group_type ..'_capacity');
+  -- local free_swim_time   = redis.call('HGET', 'cfg', 'group_type_'.. group_type ..'_free_swim_time');
 
-  local bullet_lv_max    = redis.call('HGET', 'cfg', 'group_type_'.. group_type ..'_bullet_lv_max');
-  local bullet_lv_min    = redis.call('HGET', 'cfg', 'group_type_'.. group_type ..'_bullet_lv_min');
-  local consume_freeze   = redis.call('HGET', 'cfg', 'group_type_'.. group_type ..'_consume_freeze');
-  local profit_loss_rate = redis.call('HGET', 'cfg', 'group_type_'.. group_type ..'_profit_loss_rate');
+  -- local bullet_lv_max    = redis.call('HGET', 'cfg', 'group_type_'.. group_type ..'_bullet_lv_max');
+  -- local bullet_lv_min    = redis.call('HGET', 'cfg', 'group_type_'.. group_type ..'_bullet_lv_min');
+  -- local consume_freeze   = redis.call('HGET', 'cfg', 'group_type_'.. group_type ..'_consume_freeze');
+  -- local profit_loss_rate = redis.call('HGET', 'cfg', 'group_type_'.. group_type ..'_profit_loss_rate');
 
   redis.call('HMSET', 'prop::group::'.. group_uuid, 'id',               group_uuid,
-                                                    'type',             group_type,
-                                                    'total_players',    total_players,
-                                                    'total_visitors',   total_visitors,
-                                                    'min_run',          min_run,
-                                                    'capacity',         capacity,
-                                                    'free_swim_time',   free_swim_time,
-                                                    'bullet_lv_max',    bullet_lv_max,
-                                                    'bullet_lv_min',    bullet_lv_min,
-                                                    'consume_freeze',   consume_freeze,
-                                                    'profit_loss_rate', profit_loss_rate);
+                                                    'type',             group_type);
+
+  -- redis.call('HMSET', 'prop::group::'.. group_uuid, 'id',               group_uuid,
+  --                                                   'type',             group_type,
+  --                                                   'total_players',    total_players,
+  --                                                   'total_visitors',   total_visitors,
+  --                                                   'min_run',          min_run,
+  --                                                   'capacity',         capacity,
+  --                                                   'free_swim_time',   free_swim_time,
+  --                                                   'bullet_lv_max',    bullet_lv_max,
+  --                                                   'bullet_lv_min',    bullet_lv_min,
+  --                                                   'consume_freeze',   consume_freeze,
+  --                                                   'profit_loss_rate', profit_loss_rate);
 
   -- 再次找一个空闲的群组
 
