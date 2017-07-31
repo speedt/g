@@ -134,11 +134,11 @@ pro.blast = function(bullet, fishes, user_info){
 
     logger.debug('blast 1: %j', fish);
 
-    var bullet_info = cfg.sys['bullet_range_lv_'+ bullet.level];
+    var bullet_range = cfg.sys['bullet_range_lv_'+ bullet.level];
 
-    if(!bullet_info) continue;
+    if(!bullet_range) continue;
 
-    logger.debug('blast 2: %j', bullet_info);
+    logger.debug('blast 2: %j', bullet_range);
 
     var trail_info = cfg.fishTrail[fish.path];
 
@@ -157,7 +157,7 @@ pro.blast = function(bullet, fishes, user_info){
 
     var d = distance(s1[0], s1[1], s[0], s[1], bullet.x2, bullet.y2, this.timestamp);   
 
-    if(d > bullet_info.range) continue;
+    if(d > bullet_range) continue;
 
     logger.debug('blast 4: %s', d);
 
