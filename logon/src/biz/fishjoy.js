@@ -147,7 +147,7 @@ const logger = log4js.getLogger('fishjoy');
     if(!fishpond) return;
 
     function scene1(){
-      var i = group_info.free_swim_time;
+      var i = cfg.sys['group_type_'+ group_info.type +'_free_swim_time'] - 0;
 
       (function schedule(){
 
