@@ -248,7 +248,7 @@ const logger = log4js.getLogger('fishjoy');
             schedule();
           });
 
-        }, (cfg.sys['fishjoy_fish_tide_interval_time'] - 0)));
+        }, (cfg.sys['fishjoy_fish_tide_interval_time'] - 0));
       }());
     }
 
@@ -349,7 +349,7 @@ const logger = log4js.getLogger('fishjoy');
             schedule();
           });
 
-        }, (cfg.sys['fishjoy_fish_tide_interval_time'] - 0)));
+        }, (cfg.sys['fishjoy_fish_tide_interval_time'] - 0));
       }());
     };
 

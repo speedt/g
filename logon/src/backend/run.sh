@@ -1,0 +1,1 @@
+pm install ../db/ && npm install ../cfg/ && npm install ../model/ && npm install ../biz/ && npm install ../handle/
