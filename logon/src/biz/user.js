@@ -439,3 +439,65 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
     });
   };
 })();
+
+(() => {
+  var sql = 'SELECT a.* FROM s_user_bonus_login a WHERE a.flag=1 AND a.bonus>0 AND a.user_id=? AND DATE(a.create_time)=?';
+
+  /**
+   * 获取用户当天领过奖励的那条记录
+   *
+   * @return
+   */
+  exports.getUserTodayBonus = function(user_id, cb){
+    mysql.query(sql, [user_id, format(new Date(), 'YYYY-MM-dd')], (err, docs) => {
+      if(err) return cb(err);
+      cb(null, mysql.checkOnly(docs) ? docs[0] : null);
+    });
+  };
+})();
+
+function format(date, format){
+  if(!date) return '';
+  date = date || new Date;
+  format = format || 'hh:mm:ss.S';
+  var o = {
+    'Y+': date.getFullYear(),
+    'M+':  utils.padLeft(date.getMonth() + 1, '0', 2),    // month
+    'd+':  utils.padLeft(date.getDate(), '0', 2),         // day
+    'h+':  utils.padLeft(date.getHours(), '0', 2),        // hour
+    'm+':  utils.padLeft(date.getMinutes(), '0', 2),      // minute
+    's+':  utils.padLeft(date.getSeconds(), '0', 2),      // second
+     'S': utils.padRight(date.getMilliseconds(), '0', 3)  // millisecond
+  }
+  for(var k in o){
+    if(new RegExp('('+ k +')').test(format)){
+      format = format.replace(RegExp.$1, o[k]);
+    }
+  }
+  return format;
+};
+
+(() => {
+  const sql = 'INSERT INTO s_user_bonus_login (id, user_id, flag, create_time, bonus) values (?, ?, ?, ?, ?)';
+
+  /**
+   * 保存新登陆奖励
+   *
+   * @return
+   */
+  exports.saveNewLoginBonus = function(newInfo, cb){
+
+    var postData = [
+      utils.replaceAll(uuid.v1(), '-', ''),
+      newInfo.user_id,
+      newInfo.flag,
+      new Date(),
+      newInfo.bonus
+    ];
+
+    mysql.query(sql, postData, function (err, status){
+      if(err) return cb(err);
+      cb(null, status);
+    });
+  };
+})();

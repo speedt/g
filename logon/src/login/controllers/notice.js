@@ -99,7 +99,7 @@ exports.del = function(req, res, next){
   client.heartbeat.incoming = 10000;
 
   var onCb = function(frame){
-    logger.debug('first')
+    logger.debug('notice send ready: OK');
   };
 
   exports.send = function(req, res, next){
