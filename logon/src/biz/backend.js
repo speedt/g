@@ -22,7 +22,7 @@ const _ = require('underscore');
 
 (() => {
   const numkeys = 2;
-  const sha1 = '19ca6887d336b78f1edbf9954d58d75f842c07a3';
+  const sha1 = '956476395e6c9afdd2758dad315497e85c81d6f8';
 
   /**
    * back_open.lua
@@ -40,7 +40,7 @@ const _ = require('underscore');
 
 (() => {
   const numkeys = 2;
-  const sha1 = '5e68fe02ad9ffc41f3cfa3d1b85212b8ab370bef';
+  const sha1 = '8c2b13a39ffabf7ef27677a6b14805b1921162c6';
 
   /**
    * back_close.lua
@@ -58,7 +58,7 @@ const _ = require('underscore');
 
 (() => {
   const numkeys = 1;
-  const sha1 = '5e68fe02ad9ffc41f3cfa3d1b85212b8ab370bef';
+  const sha1 = '81c73e6160b8add8ec35d8fd589482ceca68c05e';
 
   /**
    * 获取全部后置机id
