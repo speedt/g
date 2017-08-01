@@ -237,7 +237,7 @@ pro.blast = function(bullet, fishes, user_info){
  */
 function distance(x1, y1, x2, y2, bx, by, last_time){
   var ler = _.now() - last_time;
-  ler = (ler > 0) ? (ler / 300) : 0;
+  ler = (ler > 0) ? (ler / (cfg.sys['fishjoy_fish_tide_interval_time'] - 0)) : 0;
 
   var fx = x1 + (x2 - x1) * ler;
   var fy = y1 + (y2 - y1) * ler;

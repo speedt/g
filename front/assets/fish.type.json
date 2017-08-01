@@ -184,7 +184,7 @@
 		"loop": false,
 		"dead_probability": 0.2,
 		"money_min": 40,
-		"money_max": 40,
+		"money_max": 200,
 		"tool_probability": 0.1,
 		"tool_max": 9
 	},{
@@ -228,7 +228,7 @@
 		"loop": false,
 		"dead_probability": 0.03,
 		"money_min": 100,
-		"money_max": 100,
+		"money_max": 250,
 		"tool_probability": 0.1,
 		"tool_max": 12
 	},{
