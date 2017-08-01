@@ -198,6 +198,8 @@ pro.blast = function(bullet, fishes, user_info){
     var gift_count = (Math.random() < cfg.fishType[fish.type].tool_probability) ?
                       Math.random() * cfg.fishType[fish.type].tool_max : 0;
 
+    gift_count *= user_info.success_rate_gift;
+
     result.push({
       id:     fish.id,
       type:   fish.type,

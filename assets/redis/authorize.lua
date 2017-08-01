@@ -47,7 +47,9 @@ redis.call('HMSET', code, 'client_id',            client_id,
                           'bullet_consume_count', ARGV[16],
                           'gain_score_count',     ARGV[17],
                           'gift_count',           ARGV[18],
-                          'vip',                  ARGV[19]);
+                          'vip',                  ARGV[19],
+                          'success_rate_capture', redis.call('HGET', 'cfg', 'vip_'.. ARGV[19] ..'_success_rate_capture'),
+                          'success_rate_gift',    redis.call('HGET', 'cfg', 'vip_'.. ARGV[19] ..'_success_rate_gift'));
 
 redis.call('EXPIRE', code, seconds);
 
