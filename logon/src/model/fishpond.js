@@ -166,12 +166,27 @@ pro.blast = function(bullet, fishes, user_info){
       continue;
     }
 
+    logger.debug('user info: %j', user_info);
+
     var arithmetic  = user_info.score / (user_info.score + user_info.group_consume_score - user_info.group_gain_score);
+
+    logger.debug('arithmetic: %j', arithmetic);
+
     var lucky       = cfg.sys['group_type_'+ this.type +'_profit_loss_rate'] - arithmetic;
+
+    logger.debug('lucky: %j', lucky);
+
     var probability = (cfg.fishType[fish.type].dead_probability - 0) + (user_info.success_rate_capture - 0);
+
+    logger.debug('probability: %j', probability);
+
     probability     = probability + (1 - probability) * lucky;
 
+    logger.debug('probability: %j', probability);
+
     var r = Math.random();
+
+    logger.debug('r: %j', r);
 
     if(!(r < probability)) continue;
 
