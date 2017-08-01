@@ -30,6 +30,9 @@ exports.open = function(client, msg){
     try{ var extend_data = JSON.parse(doc.extend_data);
     }catch(ex){ return; }
 
+    extend_data.wheel_of_fortune_cell  = 2;
+    extend_data.wheel_of_fortune_bonus = 250;
+
     var sb = {
       method:   1,
       seqId:    1,
