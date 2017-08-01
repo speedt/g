@@ -12,6 +12,10 @@ const utils = require('speedt-utils').utils;
 
 const biz = require('emag.biz');
 
+const log4js = require('log4js');
+
+const logger = log4js.getLogger('notice');
+
 exports.indexUI = function(req, res, next){
 
   biz.notice.findAll(function (err, docs){
@@ -83,3 +87,60 @@ exports.del = function(req, res, next){
     res.send({});
   });
 };
+
+(function(){
+  var activemq = conf.activemq;
+
+  var Stomp = require('stompjs');
+  var client = Stomp.overTCP(activemq.host, activemq.port);
+
+  client.heartbeat.outgoing = 20000;
+  // client will send heartbeats every 20000ms
+  client.heartbeat.incoming = 10000;
+
+  var onCb = function(frame){
+    logger.debug('first')
+  };
+
+  exports.send = function(req, res, next){
+    var query = req.body;
+
+    if(!client) return;
+
+    var data = {};
+
+    data.method   = 1008;
+    data.receiver = 'ALL';
+    data.data     = '玩个j8玩儿';
+
+    client.send('/queue/back.send.v2.bbe1c450365b4bbd839d02411167cdea', { priority: 9 }, JSON.stringify(data));
+  };
+
+  function _unsubscribe(){
+    if(!client) return;
+
+    client.disconnect(() => {
+      logger.info('stompjs client disconnect: %s', _.now());
+    });
+  }
+
+  var onErr = function(err){
+    _unsubscribe();
+    logger.error('stompjs client:', err);
+  };
+
+  process.on('uncaughtException', err => {
+    _unsubscribe();
+  });
+
+  process.on('exit', () => {
+    _unsubscribe();
+  });
+
+  const headers = {
+    login: activemq.user,
+    passcode: activemq.password,
+  };
+
+  client.connect(headers, onCb, onErr);
+})();

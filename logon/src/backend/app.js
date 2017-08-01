@@ -145,6 +145,8 @@ biz.cfg.init(function (err, res){
     if(_5005_fishjoy_ready)   _5005_fishjoy_ready.unsubscribe();
     if(_5011_fishjoy_tool)     _5011_fishjoy_tool.unsubscribe();
 
+    if(!client) return;
+
     client.disconnect(() => {
       logger.info('stompjs client disconnect: %s', _.now());
     });
