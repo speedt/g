@@ -37,7 +37,7 @@ const _ = require('underscore');
 })();
 
 (() => {
-  var sql = 'SELECT a.* FROM s_user a WHERE a.user_name=?';
+  var sql = 'SELECT (SELECT a.lv FROM s_user_vip a WHERE a.user_id=b.id AND NOW() BETWEEN a.create_time AND a.end_time ORDER BY a.lv DESC LIMIT 1) AS vip, b.* FROM s_user b WHERE b.user_name=?';
 
   /**
    *
@@ -193,32 +193,28 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
     if(md5.hex(logInfo.user_pass) !== doc.user_pass)
       return cb(null, '103');
 
-    self.getUserVip(doc.id, function (err, vip){
-      if(err) return cb(err);
+    // 设置用户的vip等级
+    doc.vip = doc.vip || 0;
 
-      // 设置用户的vip等级
-      doc.vip = (!vip) ? 0 : vip.lv;
-
-      var p1 = new Promise((resolve, reject) => {
-        self.authorize(doc, (err, code) => {
-            if(err) return reject(err);
-            resolve(code);
-        });
-      });
-
-      var p2 = new Promise((resolve, reject) => {
-        // 服务器可用性
-        server.available((err, info) => {
+    var p1 = new Promise((resolve, reject) => {
+      self.authorize(doc, (err, code) => {
           if(err) return reject(err);
-          resolve(info);
-        });
+          resolve(code);
       });
-
-      Promise.all([p1, p2]).then(values => {
-        cb(null, null, values);
-      }).catch(cb);
-
     });
+
+    var p2 = new Promise((resolve, reject) => {
+      // 服务器可用性
+      server.available((err, info) => {
+        if(err) return reject(err);
+        resolve(info);
+      });
+    });
+
+    Promise.all([p1, p2]).then(values => {
+      cb(null, null, values);
+    }).catch(cb);
+
   });
 };
 
