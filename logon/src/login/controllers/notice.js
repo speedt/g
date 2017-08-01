@@ -105,15 +105,31 @@ exports.del = function(req, res, next){
   exports.send = function(req, res, next){
     var query = req.body;
 
-    if(!client) return;
+    if(!client) return res.send({ error: { msg: '请检查消息服务' } });
 
-    var data = {};
+    biz.notice.getById(query.id, function (err, doc){
+      if(err) return next(err);
+      if(!doc) return res.send({ error: { msg: 'Not Found' } });
 
-    data.method   = 1008;
-    data.receiver = 'ALL';
-    data.data     = '玩个j8玩儿';
+      biz.backend.findAll(function (err, docs){
+        if(err) return next(err);
+        if(!docs) return res.send({ error: { msg: 'Not Found' } });
+        if(0 === docs.length) return res.send({ error: { msg: 'Not Found' } });
 
-    client.send('/queue/back.send.v2.bbe1c450365b4bbd839d02411167cdea', { priority: 9 }, JSON.stringify(data));
+        var data = JSON.stringify({
+          method:   1008,
+          receiver: 'ALL',
+          data:     doc.content
+        });
+
+        for(let i of docs){
+          client.send('/queue/back.send.v2.'+ i, { priority: 9 }, data);
+        }
+
+        res.send({});
+
+      });
+    });
   };
 
   function _unsubscribe(){

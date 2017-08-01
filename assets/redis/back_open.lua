@@ -11,6 +11,8 @@ redis.call('SELECT', db);
 
 redis.call('HSET', 'prop::back::'.. back_id, 'open_time', open_time);
 
+redis.call('SADD', 'set::back', back_id);
+
 -- 
 
 return 'OK';

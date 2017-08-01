@@ -55,3 +55,23 @@ const _ = require('underscore');
     });
   };
 })();
+
+(() => {
+  const numkeys = 1;
+  const sha1 = '5e68fe02ad9ffc41f3cfa3d1b85212b8ab370bef';
+
+  /**
+   * 获取全部后置机id
+   *
+   * back_list.lua
+   *
+   * @return
+   */
+  exports.findAll = function(cb){
+
+    redis.evalsha(sha1, numkeys, conf.redis.database, (err, docs) => {
+      if(err) return cb(err);
+      cb(null, docs);
+    });
+  };
+})();
