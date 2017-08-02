@@ -501,7 +501,7 @@ function format(date, format){
     return _.random(1, grid_count);
   }
 
-  const sql = 'INSERT INTO s_user_bonus_login (id, user_id, flag, create_time, bonus) values (?, ?, ?, ?, ?)';
+  const sql = 'INSERT INTO s_user_bonus_login (id, user_id, flag, create_time, wheel_cell, bonus) values (?, ?, ?, ?, ?, ?)';
 
   /**
    * 保存新登陆奖励
@@ -531,8 +531,9 @@ function format(date, format){
           var postData = [
             utils.replaceAll(uuid.v1(), '-', ''),
             user_info.id,
-            1
+            1,
             new Date(),
+            random,
             bonus_count,
           ];
 
