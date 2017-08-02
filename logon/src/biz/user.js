@@ -257,6 +257,7 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
       doc.gain_score_count     || 0,
       doc.gift_count           || 0,
       doc.vip,
+      doc.user_name,
       (err, code) => {
         if(err) return cb(err);
         cb(null, code);
