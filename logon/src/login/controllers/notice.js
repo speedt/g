@@ -123,7 +123,7 @@ exports.del = function(req, res, next){
         });
 
         for(let i of docs){
-          client.send('/queue/back.send.v2.'+ i, { priority: 8 }, data);
+          client.send('/queue/back.send.v2.bbe1c450365b4bbd839d02411167cdea', { priority: 8 }, data);
         }
 
         res.send({});
