@@ -126,19 +126,22 @@
 
   function push(){
     var data = ser($('#frm'));
-      $.ajax({
-        url: '/manage/notice/edit',
-        type: 'POST',
-        dataType: 'JSON',
-        data: data,
-        success: function(data){
-          if(data.error) return alert(data.error.msg);
-          console.log(data)
-          alert('修改成功')
-        },
-        error: function(){
-          alert(arguments[2]);
-        }
+
+    data.content = $('#frm_content').html();
+
+    $.ajax({
+      url: '/manage/notice/edit',
+      type: 'POST',
+      dataType: 'JSON',
+      data: data,
+      success: function(data){
+        if(data.error) return alert(data.error.msg);
+        console.log(data)
+        alert('修改成功')
+      },
+      error: function(){
+        alert(arguments[2]);
+      }
     });
     return false;
   }
