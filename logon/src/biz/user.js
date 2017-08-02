@@ -543,8 +543,9 @@ function format(date, format){
         });
 
         var p2 = new Promise((resolve, reject) => {
-          self.updateUserInfo(user_info, bonus_count, function (err, code){
+          self.updateUserInfo(user_info.id, bonus_count, function (err, code){
             if(err) return reject(err);
+            if('OK' !== code) return reject(new Error('Not Found'));
             resolve();
           });
         });
@@ -574,7 +575,6 @@ function format(date, format){
 
     redis.evalsha(sha1, numkeys, conf.redis.database, user_id, score, (err, code) => {
         if(err) return cb(err);
-        if('OK' !== code) return;
         cb(null, code);
     });
   };
