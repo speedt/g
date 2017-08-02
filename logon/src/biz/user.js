@@ -482,9 +482,9 @@ function format(date, format){
    */
   function wheelBonus(vip_level, grid_random){
     // 此格子的价值
-    var grid_bonus  = cfg.sys['wheel_of_fortune_'+ grid_random];
+    var grid_bonus  = cfg.sys['wheel_of_fortune_'+ grid_random] - 0;
     // 用户VIP的倍数
-    var vip_grid    = cfg.sys['vip_'+ vip_level +'_wheel_of_fortune'];
+    var vip_grid    = cfg.sys['vip_'+ vip_level +'_wheel_of_fortune'] - 0;
 
     return grid_bonus * vip_grid;
   }
@@ -527,15 +527,15 @@ function format(date, format){
         // 此次转盘获得的总价值
         var bonus_count = wheelBonus(user_info.vip, random);
 
-        var postData = [
-          utils.replaceAll(uuid.v1(), '-', ''),
-          user_info.id,
-          1
-          new Date(),
-          bonus_count,
-        ];
-
         var p1 = new Promise((resolve, reject) => {
+          var postData = [
+            utils.replaceAll(uuid.v1(), '-', ''),
+            user_info.id,
+            1
+            new Date(),
+            bonus_count,
+          ];
+
           mysql.query(sql, postData, function (err, status){
             if(err) return reject(err);
             resolve();
@@ -574,6 +574,7 @@ function format(date, format){
 
     redis.evalsha(sha1, numkeys, conf.redis.database, user_id, score, (err, code) => {
         if(err) return cb(err);
+        if('OK' !== code) return;
         cb(null, code);
     });
   };
