@@ -475,6 +475,32 @@ function format(date, format){
 };
 
 (() => {
+  /**
+   * 此次转盘获得的总价值
+   *
+   * @return
+   */
+  function wheelBonus(vip_level, grid_random){
+    // 此格子的价值
+    var grid_bonus  = cfg.sys['wheel_of_fortune_'+ grid_random];
+    // 用户VIP的倍数
+    var vip_grid    = cfg.sys['vip_'+ vip_level +'_wheel_of_fortune'];
+
+    return grid_bonus * vip_grid;
+  }
+
+  /**
+   * 随机一个格子
+   *
+   * @return
+   */
+  function wheelRandom(){
+    // 转盘格子
+    var grid_count  = 8;
+    // 随机一个格子
+    return _.random(1, grid_count);
+  }
+
   const sql = 'INSERT INTO s_user_bonus_login (id, user_id, flag, create_time, bonus) values (?, ?, ?, ?, ?)';
 
   /**
@@ -482,19 +508,73 @@ function format(date, format){
    *
    * @return
    */
-  exports.saveNewLoginBonus = function(newInfo, cb){
+  exports.saveNewLoginBonus = function(server_id, channel_id, cb){
 
-    var postData = [
-      utils.replaceAll(uuid.v1(), '-', ''),
-      newInfo.user_id,
-      newInfo.flag,
-      new Date(),
-      newInfo.bonus
-    ];
+    var self = this;
 
-    mysql.query(sql, postData, function (err, status){
-      if(err) return cb(err);
-      cb(null, status);
+    self.myInfo(server_id, channel_id, function (err, doc){
+      if(err)              return cb(err);
+      if(!_.isObject(doc)) return;
+      if(!doc.id)          return;
+
+      var user_info = doc;
+
+      self.getUserTodayBonus(user_info.id, function (err, doc){
+        if(err) return cb(err);
+        if(doc) return cb(null, user_info);
+
+        var random = wheelRandom();
+        // 此次转盘获得的总价值
+        var bonus_count = wheelBonus(user_info.vip, random);
+
+        var postData = [
+          utils.replaceAll(uuid.v1(), '-', ''),
+          user_info.id,
+          1
+          new Date(),
+          bonus_count,
+        ];
+
+        var p1 = new Promise((resolve, reject) => {
+          mysql.query(sql, postData, function (err, status){
+            if(err) return reject(err);
+            resolve();
+          });
+        });
+
+        var p2 = new Promise((resolve, reject) => {
+          self.updateUserInfo(user_info, bonus_count, function (err, code){
+            if(err) return reject(err);
+            resolve();
+          });
+        });
+
+        Promise.all([p1, p2]).then(values => {
+          user_info.wheel_of_fortune_cell  = random;
+          user_info.wheel_of_fortune_bonus = bonus_count;
+          cb(null, user_info);
+        }).catch(cb);
+
+      });
+
+    });
+  };
+})();
+
+(() => {
+  const numkeys = 2;
+  const sha1 = '7a37ef6afacc93605536b75a22e566062570a61f';
+
+  /**
+   * user_info_update.lua
+   *
+   * @return
+   */
+  exports.updateUserInfo = function(user_id, score, cb){
+
+    redis.evalsha(sha1, numkeys, conf.redis.database, user_id, score, (err, code) => {
+        if(err) return cb(err);
+        cb(null, code);
     });
   };
 })();

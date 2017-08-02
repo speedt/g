@@ -23,15 +23,15 @@ exports.open = function(client, msg){
   var server_id  = s[0];
   var channel_id = s[1];
 
-  biz.user.myInfo(server_id, channel_id, function (err, doc){
+  biz.user.saveNewLoginBonus(server_id, channel_id, function (err, doc){
     if(err) return logger.error('channel open:', err);
     if(!_.isObject(doc)) return;
 
     try{ var extend_data = JSON.parse(doc.extend_data);
     }catch(ex){ return; }
 
-    extend_data.wheel_of_fortune_cell  = 2;
-    extend_data.wheel_of_fortune_bonus = 250;
+    extend_data.wheel_of_fortune_cell  = doc.wheel_of_fortune_cell;
+    extend_data.wheel_of_fortune_bonus = doc.wheel_of_fortune_bonus;
 
     var sb = {
       method:   1,
