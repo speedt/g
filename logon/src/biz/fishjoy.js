@@ -454,7 +454,7 @@ exports.blast = function(server_id, channel_id, blast, cb){
         if(!_.isArray(doc)) return cb(null, doc);
 
         // [用户id, 鱼id, 鱼的价值, 用户现有钱, 礼券]
-        var result = [user_info.id, fish.id, fish.money, doc[1], fish.gift];
+        var result = [user_info.id, fish.id, fish.money, doc[1], fish.gift, cfg.fishType[fish.type].notify, fish.type];
         logger.debug('dead fish: %j', result);
 
         cb(null, [doc[0], result]);

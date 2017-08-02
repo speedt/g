@@ -276,6 +276,26 @@ exports.blast = function(client, msg){
 
           client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
         }
+
+        // notify all
+        if(!(result.data[5])) return;
+
+        biz.backend.findAll(function (err, docs){
+          if(err) return logger.error('backend findAll:', err);
+          if(!docs) return;
+          if(0 === docs.length) return;
+
+          var data = JSON.stringify({
+            method:   1008,
+            receiver: 'ALL',
+            data:     result.data
+          });
+
+          for(let i of docs){
+            client.send('/queue/back.send.v2.'+ i, { priority: 8 }, data);
+          }
+        });
+
       })());
     }
 

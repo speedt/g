@@ -206,7 +206,7 @@ pro.blast = function(bullet, fishes, user_info){
       money:  parseInt(_.random((cfg.fishType[fish.type].money_min - 0), (cfg.fishType[fish.type].money_max - 0)) * (bullet.consume - 0)),
       gift:   parseInt(gift_count),
       tool_1: 0,
-      tool_2: 0,
+      tool_2: 0
     });
 
     self.clearFish(fish);
