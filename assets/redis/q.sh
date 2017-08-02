@@ -23,6 +23,8 @@ echo ""
 echo "channel_close.lua"
 /root/my/redis/redis-3.2.6/src/redis-cli -a 123456 -p 12379 script load "$(cat /root/my/git/speedt/g/assets/redis/channel_close.lua)"
 
+# 
+
 echo ""
 echo "back_open.lua"
 /root/my/redis/redis-3.2.6/src/redis-cli -a 123456 -p 12379 script load "$(cat /root/my/git/speedt/g/assets/redis/back_open.lua)"
@@ -34,6 +36,22 @@ echo "back_close.lua"
 echo ""
 echo "back_list.lua"
 /root/my/redis/redis-3.2.6/src/redis-cli -a 123456 -p 12379 script load "$(cat /root/my/git/speedt/g/assets/redis/back_list.lua)"
+
+# 
+
+echo ""
+echo "front_open.lua"
+/root/my/redis/redis-3.2.6/src/redis-cli -a 123456 -p 12379 script load "$(cat /root/my/git/speedt/g/assets/redis/front_open.lua)"
+
+echo ""
+echo "front_close.lua"
+/root/my/redis/redis-3.2.6/src/redis-cli -a 123456 -p 12379 script load "$(cat /root/my/git/speedt/g/assets/redis/front_close.lua)"
+
+echo ""
+echo "front_list.lua"
+/root/my/redis/redis-3.2.6/src/redis-cli -a 123456 -p 12379 script load "$(cat /root/my/git/speedt/g/assets/redis/front_list.lua)"
+
+# 
 
 echo ""
 echo "group_search.lua"
@@ -54,6 +72,8 @@ echo "group_users_channel.lua"
 echo ""
 echo "group_users_ready.lua"
 /root/my/redis/redis-3.2.6/src/redis-cli -a 123456 -p 12379 script load "$(cat /root/my/git/speedt/g/assets/redis/group_users_ready.lua)"
+
+# 
 
 echo ""
 echo "fishjoy_ready.lua"
