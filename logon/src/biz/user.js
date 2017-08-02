@@ -37,7 +37,9 @@ const _ = require('underscore');
 })();
 
 (() => {
-  var sql = 'SELECT (SELECT a.lv FROM s_user_vip a WHERE a.user_id=b.id AND NOW() BETWEEN a.create_time AND a.end_time ORDER BY a.lv DESC LIMIT 1) AS vip, b.* FROM s_user b WHERE b.user_name=?';
+  // var sql = 'SELECT (SELECT a.lv FROM s_user_vip a WHERE a.user_id=b.id AND NOW() BETWEEN a.create_time AND a.end_time ORDER BY a.lv DESC LIMIT 1) AS vip, b.* FROM s_user b WHERE b.user_name=?';
+
+  var sql = 'SELECT b.* FROM s_user b WHERE b.user_name=?';
 
   /**
    *
@@ -116,7 +118,7 @@ const _ = require('underscore');
     if(!regex_user_name.test(newInfo.user_pass)) return '密码不能为空';
   }
 
-  var sql = 'INSERT INTO s_user (id, user_name, user_pass, status, sex, create_time, mobile, qq, weixin, email, device_code, score, bullet_level, tool_1, tool_2, tool_3, tool_4, tool_5, tool_6, tool_7, tool_8, tool_9, nickname, diamond) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+  var sql = 'INSERT INTO s_user (id, user_name, user_pass, status, sex, create_time, mobile, qq, weixin, email, device_code, score, bullet_level, tool_1, tool_2, tool_3, tool_4, tool_5, tool_6, tool_7, tool_8, tool_9, nickname, diamond, vip, purchase_count) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 
   exports.register = function(newInfo, cb){
 
@@ -155,6 +157,8 @@ const _ = require('underscore');
         0,
         0,
         newInfo.user_name || '',
+        0,
+        0,
         0
       ];
 
@@ -192,9 +196,6 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
     // 验证密码
     if(md5.hex(logInfo.user_pass) !== doc.user_pass)
       return cb(null, '103');
-
-    // 设置用户的vip等级
-    doc.vip = doc.vip || 0;
 
     var p1 = new Promise((resolve, reject) => {
       self.authorize(doc, (err, code) => {
@@ -421,21 +422,21 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
   };
 })();
 
-(() => {
-  var sql = 'SELECT a.* FROM s_user_vip a WHERE a.user_id=? AND NOW() BETWEEN a.create_time AND a.end_time ORDER BY a.lv DESC LIMIT 1';
+// (() => {
+//   var sql = 'SELECT a.* FROM s_user_vip a WHERE a.user_id=? AND NOW() BETWEEN a.create_time AND a.end_time ORDER BY a.lv DESC LIMIT 1';
 
-  /**
-   * 获取用户的VIP等级
-   *
-   * @return
-   */
-  exports.getUserVip = function(user_id, cb){
-    mysql.query(sql, [user_id], (err, docs) => {
-      if(err) return cb(err);
-      cb(null, mysql.checkOnly(docs) ? docs[0] : null);
-    });
-  };
-})();
+//   /**
+//    * 获取用户的VIP等级
+//    *
+//    * @return
+//    */
+//   exports.getUserVip = function(user_id, cb){
+//     mysql.query(sql, [user_id], (err, docs) => {
+//       if(err) return cb(err);
+//       cb(null, mysql.checkOnly(docs) ? docs[0] : null);
+//     });
+//   };
+// })();
 
 (() => {
   var sql = 'SELECT a.* FROM s_user_bonus_login a WHERE a.flag=1 AND a.bonus>0 AND a.user_id=? AND DATE(a.create_time)=?';

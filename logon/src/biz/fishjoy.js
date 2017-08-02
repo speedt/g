@@ -353,7 +353,7 @@ const logger = log4js.getLogger('fishjoy');
       }());
     };
 
-    scene2();
+    scene1();
   }
 
   const numkeys = 3;
