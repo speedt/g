@@ -564,7 +564,7 @@ function format(date, format){
 
 (() => {
   const numkeys = 2;
-  const sha1 = '7a37ef6afacc93605536b75a22e566062570a61f';
+  const sha1 = '9ed0f642d1fafd1ce31f912f39eaaa63df77891a';
 
   /**
    * user_info_update.lua
