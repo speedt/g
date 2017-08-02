@@ -525,6 +525,37 @@ exports.blast = function(server_id, channel_id, blast, cb){
   }
 
   /**
+   * 锁定
+   *
+   * @return
+   */
+  function lock(server_id, channel_id, tool, cb){
+
+    var fish_id = tool[1];
+
+    if(!fish_id) return;
+
+    redis.evalsha(sha1, numkeys, conf.redis.database, server_id, channel_id, 'lock', (err, doc) => {
+      if(err) return cb(err);
+      if(!_.isArray(doc)) return cb(null, doc);
+
+      // 获取群组
+      var group_id = doc[1].shift();
+
+      if(!group_id) return;
+
+      var fishpond = fishpondPool.get(group_id);
+
+      if(!fishpond) return;
+
+      doc[1].push(2);
+      doc[1].push(fish_id);
+      logger.debug('lock: %j', doc);
+      cb(null, doc);
+    });
+  }
+
+  /**
    * 使用道具
    *
    * fishjoy_tool.lua
@@ -542,6 +573,7 @@ exports.blast = function(server_id, channel_id, blast, cb){
 
     switch(tool_id){
       case 1: return freeze(server_id, channel_id, cb);
+      case 2: return lock(server_id, channel_id, tool, cb);
       default: break;
     }
 

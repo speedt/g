@@ -286,7 +286,7 @@ exports.blast = function(client, msg){
           if(0 === docs.length) return;
 
           var data = JSON.stringify({
-            method:   1008,
+            method:   1010,
             receiver: 'ALL',
             data:     result.data
           });
