@@ -105,7 +105,7 @@ exports.del = function(req, res, next){
   exports.send = function(req, res, next){
     var query = req.body;
 
-    if(!client) return res.send({ error: { msg: '请检查消息服务' } });
+    if(!client) return res.send({ error: { msg: '消息服务异常' } });
 
     biz.notice.getById(query.id, function (err, doc){
       if(err) return next(err);
@@ -123,7 +123,7 @@ exports.del = function(req, res, next){
         });
 
         for(let i of docs){
-          client.send('/queue/back.send.v2.'+ i, { priority: 9 }, data);
+          client.send('/queue/back.send.v2.'+ i, { priority: 8 }, data);
         }
 
         res.send({});
