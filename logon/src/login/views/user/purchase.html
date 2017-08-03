@@ -127,7 +127,7 @@
 										</thead>
 
 										<tbody>#set ($i=1)
-										#foreach($doc in $!{data.list_user})
+										#foreach($doc in $!{data.list_purchase})
 											<tr>
 												<td class="center">
 													<label>
@@ -162,7 +162,7 @@
 															<i class="icon-asterisk bigger-120"></i>
 														</a>
 
-														<a class="btn btn-mini btn-primary" title='充值记录' href='./purchase?id=$!{doc.id}'>
+														<a class="btn btn-mini btn-primary" title='充值记录' href='./analysis?id=$!{doc.id}'>
 															<i class="icon-info-sign bigger-120"></i>
 														</a>
 
@@ -209,7 +209,7 @@
 																</li>
 
 																<li>
-																	<a href='./purchase?id=$!{doc.id}' class="tooltip-error" data-rel="tooltip" title="充值记录">
+																	<a href='./analysis?id=$!{doc.id}' class="tooltip-error" data-rel="tooltip" title="充值记录">
 																		<span class="blue">
 																			<i class="icon-info-sign bigger-120"></i>
 																		</span>
