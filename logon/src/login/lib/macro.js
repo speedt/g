@@ -58,7 +58,7 @@ module.exports = {
   toYorN: n => {
     switch(n){
       case 1: return '是';
-      case 2: return '否';
+      case 0: return '否';
       default: return '未知';
     }
   },
