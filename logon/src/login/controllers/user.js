@@ -59,6 +59,23 @@ exports.login = function(req, res, next){
   });
 };
 
+exports.giftLoginUI = function(req, res, next){
+
+  var id = req.query.id;
+
+  biz.userGift.findLoginByUserId(id, function (err, docs){
+
+    res.render('user/gift_login', {
+      conf: conf,
+      data: {
+        list_gift_login: docs,
+        session_user:    req.session.user,
+        nav_choose:      ',03,0301,'
+      }
+    });
+  });
+};
+
 exports.purchaseUI = function(req, res, next){
 
   var id = req.query.id;

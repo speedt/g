@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="zh">
 	<head>
-		<title>充值记录 | 会员管理 | $!conf.corp.name</title>
+		<title>登陆奖励 | 会员管理 | $!conf.corp.name</title>
 		#parse('_pagelet/header2.html')
 	</head>
 
@@ -34,7 +34,7 @@
 								<i class="icon-angle-right arrow-icon"></i>
 							</span>
 						</li>
-						<li class="active">充值记录</li>
+						<li class="active">登陆奖励</li>
 					</ul><!--.breadcrumb-->
 
 					<div class="nav-search" id="nav-search">
@@ -52,10 +52,10 @@
 
 					<div class="page-header position-relative">
 						<h1>
-							充值记录
+							登陆奖励
 							<small>
 								<i class="icon-double-angle-right"></i>
-								Purchase
+								Gift Login
 							</small>
 						</h1>
 					</div><!--/.page-header-->
@@ -113,17 +113,18 @@
 												</th>
 												<th class="hidden-480">#</th>
 												<th>用户名</th>
-												<th>商品名称</th>
+												<th>奖金</th>
+												<th>格子</th>
 
 												<th class="hidden-phone">
 													<i class="icon-time bigger-110 hidden-phone"></i>
-													购买时间
+													登陆时间
 												</th>
 											</tr>
 										</thead>
 
 										<tbody>#set ($i=1)
-										#foreach($doc in $!{data.list_purchase})
+										#foreach($doc in $!{data.list_gift_login})
 											<tr>
 												<td class="center">
 													<label>
@@ -134,7 +135,8 @@
 												<td class="hidden-480">$i#set($i=$i+1)</td>
 
 												<td>$!{doc.user_name}</td>
-												<td>#num2Money($!{doc.goods_name})</td>
+												<td>#num2Money($!{doc.bonus})</td>
+												<td>$!{doc.wheel_cell}</td>
 												<td class="hidden-phone">#formatDate($!{doc.create_time})</td>
 											</tr>
 										#end
