@@ -62,5 +62,8 @@ module.exports = {
   },
   num2Money: function(n){
     return utils.currencyformat(n);
+  },
+  formatHTML: function(str){
+    return str;
   }
 };

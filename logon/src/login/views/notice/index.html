@@ -103,7 +103,6 @@
 													</label>
 												</th>
 												<th>公告标题</th>
-												<th class="hidden-480">公告内容</th>
 
 												<th class="hidden-phone">
 													<i class="icon-time bigger-110 hidden-phone"></i>
@@ -123,7 +122,7 @@
 										<tbody>
 										#foreach($doc in $!{data.list_notice})
 											<tr>
-												<td class="center">
+												<td class="center" rowspan='2' style='vertical-align: middle;'>
 													<label>
 														<input type="checkbox" value='$!{doc.id}' />
 														<span class="lbl"></span>
@@ -131,7 +130,6 @@
 												</td>
 
 												<td>$!{doc.title}</a></td>
-												<td class="hidden-480">$!{doc.content}</td>
 												<td class="hidden-phone">#formatDate($!{doc.last_time})</td>
 												<td class="hidden-phone">#formatDate($!{doc.create_time})</td>
 												<td>$!{doc.user_name}</a></td>
@@ -189,6 +187,9 @@
 														</div>
 													</div>
 												</td>
+											</tr>
+											<tr>
+												<td colspan='6'>#formatHTML($!{doc.content})</td>
 											</tr>
 										#end
 

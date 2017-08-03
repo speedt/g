@@ -14,7 +14,7 @@
 		<label class='control-label'>公告内容</label>
 
 		<div class='controls'>
-			<div class='wysiwyg-editor' id='frm_content' name='content'>$!doc.content</div>
+			<div class='wysiwyg-editor' id='frm_content' name='content'>#formatHTML($!{doc.content})</div>
 		</div>
 	</div>
 
