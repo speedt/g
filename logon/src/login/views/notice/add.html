@@ -126,7 +126,10 @@
 
   function push(){
     var data = ser($('#frm'));
-      $.ajax({
+
+    data.content = $('#frm_content').html();
+
+    $.ajax({
         url: '/manage/notice/add',
         type: 'POST',
         dataType: 'JSON',

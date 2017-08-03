@@ -64,6 +64,6 @@ module.exports = {
     return utils.currencyformat(n);
   },
   formatHTML: function(str){
-    return str;
+    return str || '';
   }
 };
