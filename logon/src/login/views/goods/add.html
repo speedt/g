@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="zh">
 	<head>
-		<title>发布公告 | 交流中心 | $!conf.corp.name</title>
+		<title>添加商品 | 交流中心 | $!conf.corp.name</title>
 		<link rel="stylesheet" href="$!{conf.html.cdn}js/ace/1.1.2/assets/css/jquery.gritter.css" />
 		#parse('_pagelet/header2.html')
 		<link rel="stylesheet" href="$!{conf.html.cdn}js/ace/1.1.2/assets/css/bootstrap-editable.css" />
@@ -41,7 +41,7 @@
 								<i class="icon-angle-right arrow-icon"></i>
 							</span>
 						</li>
-						<li class="active">发布公告</li>
+						<li class="active">添加商品</li>
 					</ul><!--.breadcrumb-->
 
 					<div class="nav-search" id="nav-search">
@@ -58,10 +58,10 @@
 
 					<div class="page-header position-relative">
 						<h1>
-							发布公告
+							添加商品
 							<small>
 								<i class="icon-double-angle-right"></i>
-								Publish Notice
+								Add Goods
 							</small>
 						</h1>
 					</div><!--/.page-header-->
@@ -96,7 +96,7 @@
 
 										<div class="tab-content">
 											<div id="home" class="tab-pane in active">
-												#parse('notice/_pagelet/form.html')
+												#parse('goods/_pagelet/form.html')
 											</div>
 										</div>
 									</div>
@@ -127,10 +127,8 @@
   function push(){
     var data = ser($('#frm'));
 
-    data.content = $('#frm_content').html();
-
     $.ajax({
-        url: '/manage/notice/add',
+        url: '/manage/goods/add',
         type: 'POST',
         dataType: 'JSON',
         data: data,

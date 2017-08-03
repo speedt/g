@@ -11,8 +11,16 @@ const site    = require('../controllers/site');
 const manager = require('../controllers/manager');
 const user    = require('../controllers/user');
 const fishjoy = require('../controllers/fishjoy');
+const goods   = require('../controllers/goods');
 
 module.exports = function(app){
+
+  app.post('/manage/goods/del$', manager.login_validate, goods.del);
+  app.post('/manage/goods/edit$', manager.login_validate, goods.edit);
+  app.get('/manage/goods/edit$', manager.login_validate, goods.editUI);
+  app.post('/manage/goods/add$', manager.login_validate, goods.add);
+  app.get('/manage/goods/add$', manager.login_validate, goods.addUI);
+  app.get('/manage/goods/', manager.login_validate, goods.indexUI);
 
   app.post('/manage/user/resetPwd$', manager.login_validate, user.resetPwd);
   app.post('/manage/user/del$', manager.login_validate, user.del);

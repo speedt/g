@@ -102,18 +102,37 @@
 														<span class="lbl"></span>
 													</label>
 												</th>
-												<th>公告标题</th>
+												<th>商品名称</th>
 
 												<th class="hidden-phone">
 													<i class="icon-time bigger-110 hidden-phone"></i>
-													上次发送
+													游戏币
+												</th>
+
+												<th class="hidden-phone">
+													<i class="icon-time bigger-110 hidden-phone"></i>
+													人民币
+												</th>
+
+												<th class="hidden-phone">
+													<i class="icon-time bigger-110 hidden-phone"></i>
+													支付平台ID
+												</th>
+
+												<th class="hidden-phone">
+													<i class="icon-time bigger-110 hidden-phone"></i>
+													一次性
+												</th>
+
+												<th class="hidden-phone">
+													<i class="icon-time bigger-110 hidden-phone"></i>
+													间隔时间（小时）
 												</th>
 
 												<th class="hidden-phone">
 													<i class="icon-time bigger-110 hidden-phone"></i>
 													创建时间
 												</th>
-												<th>创建人</th>
 
 												<th>操作</th>
 											</tr>
@@ -122,17 +141,20 @@
 										<tbody>
 										#foreach($doc in $!{data.list_goods})
 											<tr>
-												<td class="center" rowspan='2' style='vertical-align: middle;'>
+												<td class="center">
 													<label>
 														<input type="checkbox" value='$!{doc.id}' />
 														<span class="lbl"></span>
 													</label>
 												</td>
 
-												<td>$!{doc.title}</a></td>
-												<td class="hidden-phone">#formatDate($!{doc.last_time})</td>
+												<td>$!{doc.goods_name}</td>
+												<td class="hidden-phone">$!{doc.game_currency}</td>
+												<td class="hidden-phone">$!{doc.cost}</td>
+												<td class="hidden-phone">$!{doc.payment_id}</td>
+												<td class="hidden-phone">$!{doc.disposable}</td>
+												<td class="hidden-phone">$!{doc.interval_time}</td>
 												<td class="hidden-phone">#formatDate($!{doc.create_time})</td>
-												<td>$!{doc.user_name}</a></td>
 
 												<td>
 													<div class="hidden-phone visible-desktop btn-group">
@@ -143,10 +165,6 @@
 
 														<a class="btn btn-mini btn-danger" title='删除' href='javascript:del("$!{doc.id}")'>
 															<i class="icon-trash bigger-120"></i>
-														</a>
-
-														<a class="btn btn-mini btn-success" title='开始发送' href='javascript:send("$!{doc.id}")'>
-															<i class="icon-bullhorn bigger-120"></i>
 														</a>
 
 													</div>
@@ -175,21 +193,10 @@
 																	</a>
 																</li>
 
-																<li>
-																	<a href='javascript:send("$!{doc.id}")' class="tooltip-success" data-rel="tooltip" title="开始发送">
-																		<span class="red">
-																			<i class="icon-bullhorn bigger-120"></i>
-																		</span>
-																	</a>
-																</li>
-
 															</ul>
 														</div>
 													</div>
 												</td>
-											</tr>
-											<tr>
-												<td colspan='6'>#formatHTML($!{doc.content})</td>
 											</tr>
 										#end
 
@@ -234,24 +241,6 @@
 		#parse('_pagelet/js2.html')
 
 		<script>
-
-		function send(id){
-			if(confirm("频繁操作将影响服务器性能，确认执行吗？")){
-				$.ajax({
-					url: '/manage/goods/send',
-					type: 'POST',
-					dataType: 'JSON',
-					data: { id: id },
-					success: function(data){
-						if(data.error) return alert(data.error.msg);
-						alert('发送成功');
-					},
-					error: function(){
-						alert(arguments[2]);
-					}
-				});
-			}
-		}
 
 		function del(id){
 			if(confirm("确认要删除数据吗？")){
