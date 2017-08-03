@@ -47,7 +47,10 @@
 		<label class='control-label'>一次性</label>
 
 		<div class='controls'>
-			<input type='text' class='input-large' name='disposable' id='frm_disposable' value='$!doc.disposable' />
+			<select name='disposable' id='frm_disposable'>
+				<option value='1' #if(1 == $!doc.disposable)selected#end />是
+				<option value='0' #if(0 == $!doc.disposable)selected#end />否
+			</select>
 		</div>
 	</div>
 

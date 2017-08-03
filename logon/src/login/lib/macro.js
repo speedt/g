@@ -55,6 +55,13 @@ module.exports = {
       default: return '未知';
     }
   },
+  toYorN: n => {
+    switch(n){
+      case 1: return '是';
+      case 2: return '否';
+      default: return '未知';
+    }
+  },
   indexOf: (s, b) => {
     if(!s) return false;
     if(!b) return false;
