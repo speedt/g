@@ -114,6 +114,7 @@
 												<th class="hidden-480">#</th>
 												<th>用户名</th>
 												<th>金币数</th>
+												<th>VIP</th>
 												#*<!-- <th class="hidden-480">炮等级</th> -->*#
 
 												<th class="hidden-phone">
@@ -138,6 +139,7 @@
 
 												<td>$!{doc.user_name}</a></td>
 												<td>#num2Money($!{doc.score})</td>
+												<td>#num2Money($!{doc.vip})</td>
 												#*<!-- <td class="hidden-480">$!{doc.bullet_level}</td> -->*#
 												<td class="hidden-phone">#formatDate($!{doc.create_time})</td>
 
@@ -152,12 +154,16 @@
 															<i class="icon-trash bigger-120"></i>
 														</a>
 
-														<a class="btn btn-mini btn-primary" title='详情' href='./analysis?id=$!{doc.id}'>
-															<i class="icon-info-sign bigger-120"></i>
+														<a class="btn btn-mini btn-primary" title='登陆奖励' href='./analysis?id=$!{doc.id}'>
+															<i class="icon-gift bigger-120"></i>
 														</a>
 
 														<a class="btn btn-mini btn-danger" title='重置密码' href='javascript:resetPwd("$!{doc.id}")'>
 															<i class="icon-asterisk bigger-120"></i>
+														</a>
+
+														<a class="btn btn-mini btn-primary" title='充值记录' href='./analysis?id=$!{doc.id}'>
+															<i class="icon-info-sign bigger-120"></i>
 														</a>
 
 													</div>
@@ -187,9 +193,9 @@
 																</li>
 
 																<li>
-																	<a href='./analysis?id=$!{doc.id}' class="tooltip-error" data-rel="tooltip" title="详情">
+																	<a href='./analysis?id=$!{doc.id}' class="tooltip-error" data-rel="tooltip" title="登陆奖励">
 																		<span class="blue">
-																			<i class="icon-info-sign bigger-120"></i>
+																			<i class="icon-gift bigger-120"></i>
 																		</span>
 																	</a>
 																</li>
@@ -198,6 +204,14 @@
 																	<a href='javascript:resetPwd("$!{doc.id}")' class="tooltip-error" data-rel="tooltip" title="重置密码">
 																		<span class="red">
 																			<i class="icon-asterisk bigger-120"></i>
+																		</span>
+																	</a>
+																</li>
+
+																<li>
+																	<a href='./analysis?id=$!{doc.id}' class="tooltip-error" data-rel="tooltip" title="充值记录">
+																		<span class="blue">
+																			<i class="icon-info-sign bigger-120"></i>
 																		</span>
 																	</a>
 																</li>
