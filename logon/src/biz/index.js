@@ -5,6 +5,7 @@
  */
 'use strict';
 
+exports.userGift     = require('./user_gift');
 exports.userPurchase = require('./user_purchase');
 exports.user         = require('./user');
 exports.group        = require('./group');

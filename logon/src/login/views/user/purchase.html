@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="zh">
 	<head>
-		<title>会员信息 | 会员管理 | $!conf.corp.name</title>
+		<title>充值记录 | 会员管理 | $!conf.corp.name</title>
 		#parse('_pagelet/header2.html')
 	</head>
 
@@ -34,7 +34,7 @@
 								<i class="icon-angle-right arrow-icon"></i>
 							</span>
 						</li>
-						<li class="active">会员信息</li>
+						<li class="active">充值记录</li>
 					</ul><!--.breadcrumb-->
 
 					<div class="nav-search" id="nav-search">
@@ -52,10 +52,10 @@
 
 					<div class="page-header position-relative">
 						<h1>
-							会员信息
+							充值记录
 							<small>
 								<i class="icon-double-angle-right"></i>
-								User Info
+								Purchase
 							</small>
 						</h1>
 					</div><!--/.page-header-->
@@ -76,7 +76,7 @@
 								
 							</div>
 
-							<div class="row-fluid">
+							#*<!-- <div class="row-fluid">
 								<p>
 
 									<a href='javascript:;' class="btn btn-app btn-primary btn-mini">
@@ -96,7 +96,7 @@
 									</a>
 
 								</p>
-							</div><!-- buttons -->
+							</div> --><!-- buttons -->*#
 
 							<div class="row-fluid">
 								<div class="span12">
@@ -113,16 +113,12 @@
 												</th>
 												<th class="hidden-480">#</th>
 												<th>用户名</th>
-												<th>金币数</th>
-												<th>VIP</th>
-												#*<!-- <th class="hidden-480">炮等级</th> -->*#
+												<th>商品名称</th>
 
 												<th class="hidden-phone">
 													<i class="icon-time bigger-110 hidden-phone"></i>
-													注册时间
+													购买时间
 												</th>
-
-												<th>操作</th>
 											</tr>
 										</thead>
 
@@ -138,95 +134,15 @@
 												<td class="hidden-480">$i#set($i=$i+1)</td>
 
 												<td>$!{doc.user_name}</td>
-												<td>#num2Money($!{doc.score})</td>
-												<td>#num2Money($!{doc.vip})</td>
-												#*<!-- <td class="hidden-480">$!{doc.bullet_level}</td> -->*#
+												<td>#num2Money($!{doc.goods_name})</td>
 												<td class="hidden-phone">#formatDate($!{doc.create_time})</td>
-
-												<td>
-													<div class="hidden-phone visible-desktop btn-group">
-
-														<a class="btn btn-mini btn-info" title='编辑' href='./edit?id=$!{doc.id}'>
-															<i class="icon-edit bigger-120"></i>
-														</a>
-
-														<a class="btn btn-mini btn-danger" title='删除' href='javascript:del("$!{doc.id}")'>
-															<i class="icon-trash bigger-120"></i>
-														</a>
-
-														<a class="btn btn-mini btn-primary" title='登陆奖励' href='./analysis?id=$!{doc.id}'>
-															<i class="icon-gift bigger-120"></i>
-														</a>
-
-														<a class="btn btn-mini btn-danger" title='重置密码' href='javascript:resetPwd("$!{doc.id}")'>
-															<i class="icon-asterisk bigger-120"></i>
-														</a>
-
-														<a class="btn btn-mini btn-primary" title='充值记录' href='./analysis?id=$!{doc.id}'>
-															<i class="icon-info-sign bigger-120"></i>
-														</a>
-
-													</div>
-
-													<div class="hidden-desktop visible-phone">
-														<div class="inline position-relative">
-															<button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown">
-																<i class="icon-cog icon-only bigger-110"></i>
-															</button>
-
-															<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
-
-																<li>
-																	<a href='./edit?id=$!{doc.id}' class="tooltip-success" data-rel="tooltip" title="编辑">
-																		<span class="blue">
-																			<i class="icon-edit bigger-120"></i>
-																		</span>
-																	</a>
-																</li>
-
-																<li>
-																	<a href='javascript:del("$!{doc.id}")' class="tooltip-error" data-rel="tooltip" title="删除">
-																		<span class="red">
-																			<i class="icon-trash bigger-120"></i>
-																		</span>
-																	</a>
-																</li>
-
-																<li>
-																	<a href='./analysis?id=$!{doc.id}' class="tooltip-error" data-rel="tooltip" title="登陆奖励">
-																		<span class="blue">
-																			<i class="icon-gift bigger-120"></i>
-																		</span>
-																	</a>
-																</li>
-
-																<li>
-																	<a href='javascript:resetPwd("$!{doc.id}")' class="tooltip-error" data-rel="tooltip" title="重置密码">
-																		<span class="red">
-																			<i class="icon-asterisk bigger-120"></i>
-																		</span>
-																	</a>
-																</li>
-
-																<li>
-																	<a href='./analysis?id=$!{doc.id}' class="tooltip-error" data-rel="tooltip" title="充值记录">
-																		<span class="blue">
-																			<i class="icon-info-sign bigger-120"></i>
-																		</span>
-																	</a>
-																</li>
-
-															</ul>
-														</div>
-													</div>
-												</td>
 											</tr>
 										#end
 
 										</tbody>
 									</table><!-- table -->
 
-									<div class="pagination">
+									#*<!-- <div class="pagination">
 										<ul>
 											<li class="disabled">
 												<a href='javascript:;'>
@@ -247,7 +163,7 @@
 												</a>
 											</li>
 										</ul>
-									</div><!-- pagination -->
+									</div> --><!-- pagination -->*#
 								</div>
 							</div>
 
