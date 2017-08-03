@@ -48,6 +48,8 @@ module.exports = function(app){
 
   app.get('/cfg/bullet$', cfg.bullet);
 
+  app.get('/cfg/goods$', cfg.goods);
+
   app.get('/', fishjoy.indexUI);
 };
 

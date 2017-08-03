@@ -36,6 +36,20 @@ exports.edit = function(req, res, next){
   });
 };
 
+exports.goods = function(req, res, next){
+
+  biz.goods.findAll(function (err, docs){
+    if(err) return next(err);
+
+    var info = {
+      ver: 124,
+      data: docs
+    };
+
+    res.send(info);
+  });
+};
+
 exports.bullet = function(req, res, next){
 
   var p1 = new Promise((resolve, reject) => {
