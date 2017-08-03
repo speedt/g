@@ -280,8 +280,8 @@ exports.blast = function(client, msg){
         // notify all
         if(!(result.data[5])) return;
 
-        biz.backend.findAll(function (err, docs){
-          if(err) return logger.error('backend findAll:', err);
+        biz.frontend.findAll(function (err, docs){
+          if(err) return logger.error('frontend findAll:', err);
           if(!docs) return;
           if(0 === docs.length) return;
 
@@ -292,7 +292,7 @@ exports.blast = function(client, msg){
           });
 
           for(let i of docs){
-            client.send('/queue/back.send.v2.bbe1c450365b4bbd839d02411167cdea', { priority: 8 }, data);
+            client.send('/queue/back.send.v2.'+ i, { priority: 8 }, data);
           }
         });
 

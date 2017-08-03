@@ -5,10 +5,11 @@
  */
 'use strict';
 
-exports.user    = require('./user');
-exports.group   = require('./group');
-exports.fishjoy = require('./fishjoy');
-exports.backend = require('./backend');
-exports.manager = require('./manager');
-exports.cfg     = require('./cfg');
-exports.notice  = require('./notice');
+exports.user     = require('./user');
+exports.group    = require('./group');
+exports.fishjoy  = require('./fishjoy');
+exports.backend  = require('./backend');
+exports.frontend = require('./frontend');
+exports.manager  = require('./manager');
+exports.cfg      = require('./cfg');
+exports.notice   = require('./notice');

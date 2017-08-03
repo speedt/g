@@ -111,7 +111,7 @@ exports.del = function(req, res, next){
       if(err) return next(err);
       if(!doc) return res.send({ error: { msg: 'Not Found' } });
 
-      biz.backend.findAll(function (err, docs){
+      biz.frontend.findAll(function (err, docs){
         if(err) return next(err);
         if(!docs) return res.send({ error: { msg: 'Not Found' } });
         if(0 === docs.length) return res.send({ error: { msg: 'Not Found' } });
@@ -123,7 +123,7 @@ exports.del = function(req, res, next){
         });
 
         for(let i of docs){
-          client.send('/queue/back.send.v2.bbe1c450365b4bbd839d02411167cdea', { priority: 8 }, data);
+          client.send('/queue/back.send.v2.'+ i, { priority: 8 }, data);
         }
 
         res.send({});
