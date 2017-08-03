@@ -45,11 +45,11 @@ const _ = require('underscore');
       newInfo.goods_name,
       newInfo.goods_desc,
       new Date(),
-      newInfo.game_currency,
-      newInfo.cost,
-      newInfo.payment_id,
-      newInfo.disposable,
-      newInfo.interval_time,
+      newInfo.game_currency || 0,
+      newInfo.cost          || 0,
+      newInfo.payment_id    || '',
+      newInfo.disposable    || 1,
+      newInfo.interval_time || 8,
     ];
 
     mysql.query(sql, postData, function (err, status){
