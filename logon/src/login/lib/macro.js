@@ -65,5 +65,8 @@ module.exports = {
   },
   formatHTML: function(str){
     return str || '';
+  },
+  defVal: function(str, defVal){
+    return str || defVal;
   }
 };

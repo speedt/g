@@ -12,6 +12,7 @@ const manager = require('../controllers/manager');
 const user    = require('../controllers/user');
 const fishjoy = require('../controllers/fishjoy');
 const goods   = require('../controllers/goods');
+const payment = require('../controllers/payment');
 
 module.exports = function(app){
 
@@ -59,6 +60,8 @@ module.exports = function(app){
   app.get('/cfg/bullet$', cfg.bullet);
 
   app.get('/cfg/goods$', cfg.goods);
+
+  app.post('/payment/da426e6076be11e7ad1a29fa785dd421', payment.notice);
 
   app.get('/', fishjoy.indexUI);
 };

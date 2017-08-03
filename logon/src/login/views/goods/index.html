@@ -149,11 +149,11 @@
 												</td>
 
 												<td>$!{doc.goods_name}</td>
-												<td class="hidden-phone">$!{doc.game_currency}</td>
-												<td class="hidden-phone">$!{doc.cost}</td>
+												<td class="hidden-phone">#num2Money($!{doc.game_currency})</td>
+												<td class="hidden-phone">#num2Money($!{doc.cost})</td>
 												<td class="hidden-phone">$!{doc.payment_id}</td>
 												<td class="hidden-phone">$!{doc.disposable}</td>
-												<td class="hidden-phone">$!{doc.interval_time}</td>
+												<td class="hidden-phone">#num2Money($!{doc.interval_time})</td>
 												<td class="hidden-phone">#formatDate($!{doc.create_time})</td>
 
 												<td>
