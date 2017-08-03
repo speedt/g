@@ -1,10 +1,12 @@
 -- huangxin <3203317@qq.com>
 
-redis.call('FLUSHALL');
+local db = KEYS[1];
+
+redis.call('SELECT', db);
+
+redis.call('FLUSHDB');
 
 -- local key_0 = '::';
-
--- local db = KEYS[1];
 
 -- local server_id = ARGV[1];
 -- local channel_id = ARGV[2];
