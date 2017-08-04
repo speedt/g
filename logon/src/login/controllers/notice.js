@@ -105,9 +105,32 @@ exports.del = function(req, res, next){
   exports.payment = function(req, res, next){
     var query = req.body;
 
+    res.send('OK');
+
     biz.payment.notice(query, function (err, doc){
       if(err) return next(err);
-      if(!doc) return 'OK';
+      if(!doc) return;
+
+      if(!client) return;
+
+      var user_info = doc;
+
+      biz.frontend.findAll(function (err, docs){
+        if(err) return next(err);
+        if(!docs) return;
+        if(0 === docs.length) return;
+
+        var data = JSON.stringify({
+          method:   1012,
+          receiver: 'ALL',
+          data:     user_info
+        });
+
+        for(let i of docs){
+          client.send('/queue/back.send.v2.'+ i, { priority: 8 }, data);
+        }
+
+      });
     });
   };
 

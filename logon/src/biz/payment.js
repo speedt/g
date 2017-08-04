@@ -40,7 +40,11 @@ const user = require('./user');
 
       user.updateVip(payInfo.user_id, function (err, status){
         if(err) return cb(err);
-        if(0 === status.changedRows) return;
+
+        user.getById(payInfo.user_id, function (err, doc){
+          if(err) return cb(err);
+          cb(null, doc);
+        });
 
       });
     });
