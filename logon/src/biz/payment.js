@@ -34,9 +34,9 @@ const user = require('./user');
   exports.notice = function(payInfo, cb){
     if(!validate(payInfo)) return;
 
-    user.getById(payInfo.user_id, function (err, doc){
+    user.updatePurchase(payInfo.user_id, payInfo.amount, function (err, status){
       if(err) return cb(err);
-      if(!doc) return;
+      if(0 === status.changedRows) return;
     });
 
   };

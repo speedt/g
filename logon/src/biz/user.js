@@ -436,6 +436,27 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
   };
 })();
 
+(() => {
+  var sql = 'UPDATE s_user SET purchase_count=purchase_count+? WHERE id=?';
+
+  /**
+   * 更新用户消费信息
+   *
+   * @return
+   */
+  exports.updatePurchase = function(id, purchase_count, cb){
+
+    purchase_count = purchase_count || 0;
+
+    if(!(0 < purchase_count)) return;
+
+    mysql.query(sql, [purchase_count, id], (err, status) => {
+      if(err) return cb(err);
+        cb(null, status);
+    });
+  };
+})();
+
 // (() => {
 //   var sql = 'SELECT a.* FROM s_user_vip a WHERE a.user_id=? AND NOW() BETWEEN a.create_time AND a.end_time ORDER BY a.lv DESC LIMIT 1';
 
