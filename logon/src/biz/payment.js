@@ -37,6 +37,12 @@ const user = require('./user');
     user.updatePurchase(payInfo.user_id, payInfo.amount, function (err, status){
       if(err) return cb(err);
       if(0 === status.changedRows) return;
+
+      user.updateVip(payInfo.user_id, function (err, status){
+        if(err) return cb(err);
+        if(0 === status.changedRows) return;
+
+      });
     });
 
   };

@@ -457,6 +457,25 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
   };
 })();
 
+(() => {
+  var sql = 'UPDATE s_user s INNER JOIN '+
+              '(SELECT REPLACE(a.type_, "vip_", "") vip FROM s_cfg a '+
+                'WHERE a.key_="upgrade_purchase" AND a.value_<=(SELECT purchase_count FROM s_user WHERE id=?) ORDER BY a.type_ DESC LIMIT 1) b '+
+                  'SET s.vip=b.vip WHERE s.id=?';
+
+  /**
+   * 更新用户VIP
+   *
+   * @return
+   */
+  exports.updateVip = function(id, cb){
+    mysql.query(sql, [id, id], (err, status) => {
+      if(err) return cb(err);
+        cb(null, status);
+    });
+  };
+})();
+
 // (() => {
 //   var sql = 'SELECT a.* FROM s_user_vip a WHERE a.user_id=? AND NOW() BETWEEN a.create_time AND a.end_time ORDER BY a.lv DESC LIMIT 1';
 
