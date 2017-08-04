@@ -61,7 +61,7 @@ module.exports = function(app){
 
   app.get('/cfg/goods$', cfg.goods);
 
-  app.post('/payment/da426e6076be11e7ad1a29fa785dd421', payment.notice);
+  app.post('/payment/da426e6076be11e7ad1a29fa785dd421', notice.payment);
 
   app.get('/', fishjoy.indexUI);
 };

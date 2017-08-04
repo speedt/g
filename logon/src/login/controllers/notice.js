@@ -102,6 +102,15 @@ exports.del = function(req, res, next){
     logger.debug('notice send ready: OK');
   };
 
+  exports.payment = function(req, res, next){
+    var query = req.body;
+
+    biz.payment.notice(query, function (err, doc){
+      if(err) return next(err);
+      if(!doc) return 'OK';
+    });
+  };
+
   exports.send = function(req, res, next){
     var query = req.body;
 

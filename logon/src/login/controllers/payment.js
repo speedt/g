@@ -14,9 +14,4 @@ const biz = require('emag.biz');
 
 const log4js = require('log4js');
 
-const logger = log4js.getLogger('notice');
-
-exports.notice = function(req, res, next){
-  var query = req.body;
-  logger.debug(query);
-};
+const logger = log4js.getLogger('payment');

@@ -16,3 +16,4 @@ exports.manager      = require('./manager');
 exports.cfg          = require('./cfg');
 exports.notice       = require('./notice');
 exports.goods        = require('./goods');
+exports.payment      = require('./payment');
