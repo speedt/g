@@ -21,6 +21,7 @@ const redis = require('emag.db').redis;
 const _ = require('underscore');
 
 const user = require('./user');
+const user_purchase = require('./user_purchase');
 
 (() => {
 
@@ -38,15 +39,20 @@ const user = require('./user');
       if(err) return cb(err);
       if(0 === status.changedRows) return;
 
-      user.updateVip(payInfo.user_id, function (err, status){
+      user_purchase.saveNew({ goods_id: payInfo.product_id, user_id: payInfo.user_id }, function (err, status){
         if(err) return cb(err);
 
-        user.getById(payInfo.user_id, function (err, doc){
+        user.updateVip(payInfo.user_id, function (err, status){
           if(err) return cb(err);
-          cb(null, doc);
+
+          user.getById(payInfo.user_id, function (err, doc){
+            if(err) return cb(err);
+            cb(null, doc);
+          });
         });
 
       });
+
     });
 
   };

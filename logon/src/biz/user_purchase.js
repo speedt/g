@@ -36,3 +36,26 @@ const _ = require('underscore');
     });
   };
 })();
+
+(() => {
+  const sql = 'INSERT INTO s_user_purchase (id, goods_id, create_time, user_id) values (?, ?, ?, ?)';
+
+  /**
+   *
+   * @return
+   */
+  exports.saveNew = function(newInfo, cb){
+
+    var postData = [
+      utils.replaceAll(uuid.v1(), '-', ''),
+      newInfo.goods_id,
+      new Date(),
+      newInfo.user_id
+    ];
+
+    mysql.query(sql, postData, function (err, status){
+      if(err) return cb(err);
+      cb(null, status);
+    });
+  };
+})();
