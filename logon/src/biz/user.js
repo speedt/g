@@ -25,6 +25,8 @@ const server = require('./server');
 
 const _ = require('underscore');
 
+const logger = require('log4js').getLogger('user');
+
 (() => {
   var sql = 'SELECT b.user_name, c.goods_name, a.* FROM (SELECT * FROM s_user_purchase WHERE user_id=?) a LEFT JOIN s_user b ON (a.user_id=b.id) LEFT JOIN w_goods c ON (a.goods_id=c.id) WHERE b.id IS NOT NULL AND c.id IS NOT NULL ORDER BY a.create_time DESC';
 
@@ -416,7 +418,7 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
   exports.del = function(id, status, cb){
     mysql.query(sql, [status, id], (err, status) => {
       if(err) return cb(err);
-        cb(null, status);
+      cb(null, status);
     });
   };
 })();
@@ -431,7 +433,7 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
   exports.resetPwd = function(id, user_pass, cb){
     mysql.query(sql, [md5.hex(user_pass), id], (err, status) => {
       if(err) return cb(err);
-        cb(null, status);
+      cb(null, status);
     });
   };
 })();
@@ -444,15 +446,12 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
    *
    * @return
    */
-  exports.updatePurchase = function(id, purchase_count, cb){
+  exports.updatePurchase = function(id, purchase_count, cb, conn){
 
-    purchase_count = purchase_count || 0;
-
-    if(!(0 < purchase_count)) return;
-
-    mysql.query(sql, [purchase_count, id], (err, status) => {
+    conn.query(sql, [purchase_count, id], (err, status) => {
       if(err) return cb(err);
-        cb(null, status);
+      logger.trace('updatePurchase status: %j', status);
+      cb(null, status);
     });
   };
 })();

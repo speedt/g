@@ -38,7 +38,7 @@ const _ = require('underscore');
 })();
 
 (() => {
-  const sql = 'INSERT INTO s_user_purchase (id, goods_id, create_time, user_id) values (?, ?, ?, ?)';
+  const sql = 'INSERT INTO s_user_purchase (id, goods_id, create_time, user_id, order_id) values (?, ?, ?, ?, ?)';
 
   /**
    *
@@ -50,12 +50,14 @@ const _ = require('underscore');
       utils.replaceAll(uuid.v1(), '-', ''),
       newInfo.goods_id,
       new Date(),
-      newInfo.user_id
+      newInfo.user_id,
+      newInfo.order_id
     ];
 
     mysql.query(sql, postData, function (err, status){
       if(err) return cb(err);
-      cb(null, status);
+      logger.trace('saveNew status: %j', status);
+      cb(null, postData);
     });
   };
 })();
