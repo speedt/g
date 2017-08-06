@@ -320,7 +320,9 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
 
     redis.evalsha(sha1, numkeys, conf.redis.database, server_id, channel_id, (err, doc) => {
         if(err) return cb(err);
+
         if(!_.isArray(doc)) return;
+
         cb(null, cfg.arrayToObject(doc));
     });
   };

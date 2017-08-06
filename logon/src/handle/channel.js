@@ -72,7 +72,7 @@ exports.money = function(client, msg){
   if(!data.serverId)  return;
   if(!data.channelId) return;
 
-  biz.user.updateUserPurchase(server_id, channel_id, function (err, doc){
+  biz.user.updateUserPurchase(data.serverId, data.channelId, function (err, doc){
 
     data.method   = 1016;
     data.receiver = data.channelId;

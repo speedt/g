@@ -161,7 +161,7 @@ exports.switch = function(client, msg){
   try{ var data = JSON.parse(msg.body);
   }catch(ex){ return; }
 
-  biz.fishjoy.switch(data.serverId, data.channelId, data.data, function (err, doc){
+  biz.fishjoy.switch(data.serverId, data.channelId, data.data.level, function (err, doc){
     if(err) return logger.error('fishjoy switch:', err);
 
     if(_.isArray(doc)){
@@ -172,7 +172,7 @@ exports.switch = function(client, msg){
       var result = {
         method: 5014,
         seqId:  data.seqId,
-        data:   doc[1],
+        data:   [doc[1], data.data.style],
       };
 
       return ((function(){
