@@ -578,7 +578,7 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
         });
 
         var p2 = new Promise((resolve, reject) => {
-          self.updateUserInfo(user_info.id, bonus_count, function (err, code){
+          self.updateUserMoney(user_info.id, bonus_count, function (err, code){
             if(err) return reject(err);
             if('OK' !== code) return reject(new Error('Not Found'));
             resolve();
@@ -599,7 +599,7 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
 
 (() => {
   const numkeys = 2;
-  const sha1 = 'cf0dd48cd89d5f40f45b424abafaf61deb6e0c6c';
+  const sha1 = 'e55cbe245cd29ba21c3ce357bdc43004eed76381';
 
   /**
    * user_info_vip.lua
