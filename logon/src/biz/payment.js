@@ -74,7 +74,7 @@ const logger = require('log4js').getLogger('payment');
     user.updateUserVip(payInfo.user_id, function (err, status){
       if(err) return reject(err);
       resolve(status);
-    }, conn);
+    });
   }
 
   var private_key  = 'E2D5511AFC845DDF8CE220ACE2A0A1C9';

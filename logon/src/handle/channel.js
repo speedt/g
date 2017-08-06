@@ -15,8 +15,6 @@ const _ = require('underscore');
 
 const group = require('./group');
 
-const user = require('./user');
-
 exports.open = function(client, msg){
   if(!_.isString(msg.body)) return logger.error('channel open empty');
 
@@ -74,7 +72,7 @@ exports.money = function(client, msg){
   if(!data.serverId)  return;
   if(!data.channelId) return;
 
-  user.updateUserPurchase(server_id, channel_id, function (err, doc){
+  biz.user.updateUserPurchase(server_id, channel_id, function (err, doc){
 
     data.method   = 1016;
     data.receiver = data.channelId;

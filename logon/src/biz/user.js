@@ -599,7 +599,7 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
 
 (() => {
   const numkeys = 2;
-  const sha1 = '9ed0f642d1fafd1ce31f912f39eaaa63df77891a';
+  const sha1 = 'cf0dd48cd89d5f40f45b424abafaf61deb6e0c6c';
 
   /**
    * user_info_vip.lua
