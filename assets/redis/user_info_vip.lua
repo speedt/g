@@ -15,6 +15,6 @@ if (0 == exist) then return 'invalid_user_id'; end;
 
 -- 
 
-redis.call('HINCRBY', 'prop::user::'.. user_id, 'vip', vip);
+redis.call('HSET', 'prop::user::'.. user_id, 'vip', vip);
 
 return 'OK';
