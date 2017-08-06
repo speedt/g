@@ -602,15 +602,87 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
   const sha1 = '9ed0f642d1fafd1ce31f912f39eaaa63df77891a';
 
   /**
-   * user_info_update.lua
+   * user_info_vip.lua
    *
    * @return
    */
-  exports.updateUserInfo = function(user_id, score, cb){
+  exports.updateUserVip = function(user_id, cb){
+
+    this.getById(user_id, function (err, doc){
+      if(err) return cb(err);
+
+      redis.evalsha(sha1, numkeys, conf.redis.database, user_id, doc.vip, (err, code) => {
+          if(err) return cb(err);
+          cb(null, code);
+      });
+    })
+
+  };
+})();
+
+(() => {
+  const numkeys = 2;
+  const sha1 = '9ed0f642d1fafd1ce31f912f39eaaa63df77891a';
+
+  /**
+   * user_info_money.lua
+   *
+   * @return
+   */
+  exports.updateUserMoney = function(user_id, score, cb){
 
     redis.evalsha(sha1, numkeys, conf.redis.database, user_id, score, (err, code) => {
         if(err) return cb(err);
         cb(null, code);
     });
+  };
+})();
+
+
+(() => {
+  var sql  = 'SELECT b.game_currency, a.id FROM s_user_purchase a, w_goods b WHERE a.status=0 AND a.user_id=? AND a.goods_id=b.id';
+  var sql2 = 'UPDATE s_user_purchase SET status=1 WHERE id=?';
+
+  /**
+   * 更新用户购买记录
+   *
+   * @return
+   */
+  exports.updateUserPurchase = function(server_id, channel_id, cb){
+
+    var self = this;
+
+    self.myInfo(server_id, channel_id, function (err, doc){
+      if(err)              return cb(err);
+      if(!_.isObject(doc)) return;
+      if(!doc.id)          return;
+      if(!doc.score)       return;
+
+      var user_id = doc.id;
+
+      mysql.query(sql, [user_id], (err, docs) => {
+        if(err) return cb(err);
+
+        if(0 === docs.length) return cb(null);
+
+        var count = 0;
+
+        for(let i of docs){
+
+          count += i.game_currency;
+
+          mysql.query(sql2, [i.id], function (err, status){
+
+          });
+        }
+
+        self.updateUserMoney(user_id, count, function (err){
+          if(err) return cb(err);
+          cb(null, { user_id: user_id, score: count });
+        });
+
+      });
+    });
+
   };
 })();

@@ -110,6 +110,7 @@ biz.cfg.init(function (err, res){
 
     _channel_open  = client.subscribe('/queue/channel.open',   handle.channel.open.bind(null, client));
     _channel_close = client.subscribe('/queue/channel.close', handle.channel.close.bind(null, client));
+    _channel_money   = client.subscribe('/queue/qq.1015',     handle.channel.money.bind(null, client));
 
     _2001_chat_1v1   = client.subscribe('/queue/qq.2001',   handle.chat.one_for_one.bind(null, client));
     _2003_chat_group = client.subscribe('/queue/qq.2003', handle.chat.one_for_group.bind(null, client));
@@ -132,6 +133,7 @@ biz.cfg.init(function (err, res){
 
     if(_channel_open)   _channel_open.unsubscribe();
     if(_channel_close) _channel_close.unsubscribe();
+    if(_channel_money) _channel_money.unsubscribe();
 
     if(_2001_chat_1v1)     _2001_chat_1v1.unsubscribe();
     if(_2003_chat_group) _2003_chat_group.unsubscribe();
@@ -187,7 +189,7 @@ biz.cfg.init(function (err, res){
   // ----------------------------------------------------------------------------------------------------
   // ----------------------------------------------------------------------------------------------------
 
-  var _channel_open, _channel_close;
+  var _channel_open, _channel_close, _channel_money;
 
   // ----------------------------------------------------------------------------------------------------
   // ----------------------------------------------------------------------------------------------------

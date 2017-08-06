@@ -16,8 +16,12 @@ echo "user_info.lua"
 /root/my/redis/redis-3.2.6/src/redis-cli -a 123456 -p 12379 script load "$(cat /root/my/git/speedt/g/assets/redis/user_info.lua)"
 
 echo ""
-echo "user_info_update.lua"
-/root/my/redis/redis-3.2.6/src/redis-cli -a 123456 -p 12379 script load "$(cat /root/my/git/speedt/g/assets/redis/user_info_update.lua)"
+echo "user_info_money.lua"
+/root/my/redis/redis-3.2.6/src/redis-cli -a 123456 -p 12379 script load "$(cat /root/my/git/speedt/g/assets/redis/user_info_money.lua)"
+
+echo ""
+echo "user_info_vip.lua"
+/root/my/redis/redis-3.2.6/src/redis-cli -a 123456 -p 12379 script load "$(cat /root/my/git/speedt/g/assets/redis/user_info_vip.lua)"
 
 echo ""
 echo "channel_close.lua"

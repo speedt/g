@@ -15,6 +15,8 @@ const _ = require('underscore');
 
 const group = require('./group');
 
+const user = require('./user');
+
 exports.open = function(client, msg){
   if(!_.isString(msg.body)) return logger.error('channel open empty');
 
@@ -60,5 +62,23 @@ exports.close = function(client, msg){
       if(err) return logger.error('channel close:', err);
       logger.info('channel close: %j', s);
     });
+  });
+};
+
+exports.money = function(client, msg){
+  if(!_.isString(msg.body)) return logger.error('channel money empty');
+
+  try{ var data = JSON.parse(msg.body);
+  }catch(ex){ return; }
+
+  if(!data.serverId)  return;
+  if(!data.channelId) return;
+
+  user.updateUserPurchase(server_id, channel_id, function (err, doc){
+
+    data.method   = 1016;
+    data.receiver = data.channelId;
+    data.data     = doc;
+    if(client) client.send('/queue/back.send.v2.'+ data.serverId, { priority: 9 }, JSON.stringify(data));
   });
 };

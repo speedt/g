@@ -69,13 +69,13 @@ const logger = require('log4js').getLogger('payment');
     });
   }
 
-  // function step5(payInfo, conn, goods_info, resolve, reject){
+  function step6(payInfo, resolve, reject){
 
-  //   user.updateVipToCache(payInfo.goods_id, function (err, doc){
-  //     if(err) return reject(err);
-  //     resolve(doc);
-  //   }, conn);
-  // }
+    user.updateUserVip(payInfo.user_id, function (err, status){
+      if(err) return reject(err);
+      resolve(status);
+    }, conn);
+  }
 
   var private_key  = 'E2D5511AFC845DDF8CE220ACE2A0A1C9';
   var enhanced_key = 'OWE2ZmMyOGVmMWNhYzc0MmYyOWU';
@@ -149,6 +149,8 @@ const logger = require('log4js').getLogger('payment');
           return new Promise(step3.bind(null, payInfo, conn));
         }).then(function(){
           return new Promise(step5.bind(null, conn));
+        }).then(function(){
+          return new Promise(step6.bind(null, payInfo));
         }).then(function(){
           return new Promise(step4.bind(null, payInfo));
         }).then(function (user_info){
