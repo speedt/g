@@ -62,6 +62,13 @@ const logger = require('log4js').getLogger('payment');
     });
   }
 
+  function step5(conn, resolve, reject){
+    conn.commit(function (err){
+      if(err) return reject(err);
+      resolve();
+    });
+  }
+
   // function step5(payInfo, conn, goods_info, resolve, reject){
 
   //   user.updateVipToCache(payInfo.goods_id, function (err, doc){
@@ -141,16 +148,10 @@ const logger = require('log4js').getLogger('payment');
         }).then(function(){
           return new Promise(step3.bind(null, payInfo, conn));
         }).then(function(){
-
-          conn.commit(function (err){
-            if(err) return conn.rollback(function(){ cb(err); });
-          });
-
-            return new Promise(step4.bind(null, payInfo));
-
-
+          return new Promise(step5.bind(null, conn));
+        }).then(function(){
+          return new Promise(step4.bind(null, payInfo));
         }).then(function (user_info){
-
           cb(null, null, user_info);
         }).catch(err => {
           conn.rollback(function(){
@@ -161,32 +162,6 @@ const logger = require('log4js').getLogger('payment');
 
       });
     });
-
-
-
-
-
-
-
-    // user.updatePurchase(payInfo.user_id, payInfo.amount, function (err, status){
-    //   if(err) return cb(err);
-    //   if(0 === status.changedRows) return;
-
-    //   user_purchase.saveNew({ goods_id: payInfo.product_id, user_id: payInfo.user_id }, function (err, status){
-    //     if(err) return cb(err);
-
-    //     user.updateVip(payInfo.user_id, function (err, status){
-    //       if(err) return cb(err);
-
-    //       user.getById(payInfo.user_id, function (err, doc){
-    //         if(err) return cb(err);
-    //         cb(null, doc);
-    //       });
-    //     });
-
-    //   });
-
-    // });
 
   };
 })();
