@@ -78,16 +78,8 @@ const logger = require('log4js').getLogger('user');
    */
   exports.getById = function(id, cb){
 
-    console.log(id)
-
-
-    console.log('----')
-
-
-
     mysql.query(sql, [id], (err, docs) => {
       if(err) return cb(err);
-
       cb(null, mysql.checkOnly(docs) ? docs[0] : null);
     });
   };

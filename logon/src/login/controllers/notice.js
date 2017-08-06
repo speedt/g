@@ -109,32 +109,30 @@ exports.del = function(req, res, next){
 
     res.send('OK');
 
-    biz.payment.notice(query, function (err, doc){
+    biz.payment.notice(query, function (err, code, doc){
+      if(err) return next(err);
+      if(code) return;
 
-      console.log(arguments)
-    //   if(err) return next(err);
-    //   if(!doc) return;
+      if(!client) return;
 
-    //   if(!client) return;
+      var user_info = doc;
 
-    //   var user_info = doc;
+      biz.frontend.findAll(function (err, docs){
+        if(err) return next(err);
+        if(!docs) return;
+        if(0 === docs.length) return;
 
-    //   biz.frontend.findAll(function (err, docs){
-    //     if(err) return next(err);
-    //     if(!docs) return;
-    //     if(0 === docs.length) return;
+        var data = JSON.stringify({
+          method:   1012,
+          receiver: 'ALL',
+          data:     user_info
+        });
 
-    //     var data = JSON.stringify({
-    //       method:   1012,
-    //       receiver: 'ALL',
-    //       data:     user_info
-    //     });
+        for(let i of docs){
+          client.send('/queue/back.send.v2.'+ i, { priority: 8 }, data);
+        }
 
-    //     for(let i of docs){
-    //       client.send('/queue/back.send.v2.'+ i, { priority: 8 }, data);
-    //     }
-
-    //   });
+      });
     });
   };
 
