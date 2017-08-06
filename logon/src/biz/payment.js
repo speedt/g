@@ -24,6 +24,8 @@ const user = require('./user');
 const user_purchase = require('./user_purchase');
 const goods = require('./goods');
 
+const logger = require('log4js').getLogger('payment');
+
 (() => {
 
   function step1(payInfo, conn, resolve, reject){
@@ -51,22 +53,22 @@ const goods = require('./goods');
     }, conn);
   }
 
-  function step4(payInfo, conn, resolve, reject){
+  function step4(payInfo, resolve, reject){
 
-    goods.getById(payInfo.goods_id, function (err, doc){
+    user.getById(payInfo.user_id, function (err, doc){
       if(err) return reject(err);
       if(!doc) return reject('11');
       resolve(doc);
-    }, conn);
+    });
   }
 
-  function step5(payInfo, conn, goods_info, resolve, reject){
+  // function step5(payInfo, conn, goods_info, resolve, reject){
 
-    user.updatePaymentToCache(payInfo.goods_id, function (err, doc){
-      if(err) return reject(err);
-      resolve(doc);
-    }, conn);
-  }
+  //   user.updateVipToCache(payInfo.goods_id, function (err, doc){
+  //     if(err) return reject(err);
+  //     resolve(doc);
+  //   }, conn);
+  // }
 
   var private_key  = 'E2D5511AFC845DDF8CE220ACE2A0A1C9';
   var enhanced_key = 'OWE2ZmMyOGVmMWNhYzc0MmYyOWU';
@@ -88,15 +90,17 @@ const goods = require('./goods');
 
     if(_.isEmpty(payInfo.user_id)) return cb(null, '03');
 
-    logger.trace('notice param user_id: %s', id);
+    logger.debug('notice param user_id: %s', payInfo.user_id);
 
     // ------------------------------------------------------
 
     payInfo.amount = payInfo.amount || 0;
 
+    payInfo.amount -= 0;
+
     if(!_.isNumber(payInfo.amount)) return cb(null, '04');
 
-    logger.trace('notice param amount: %s', payInfo.amount);
+    logger.debug('notice param amount: %s', payInfo.amount);
 
     if(!(0 < payInfo.amount)) return cb(null, '05');
 
@@ -110,7 +114,7 @@ const goods = require('./goods');
 
     if(_.isEmpty(payInfo.product_id)) return cb(null, '07');
 
-    logger.trace('notice param product_id: %s', id);
+    logger.debug('notice param product_id: %s', payInfo.product_id);
 
     // ------------------------------------------------------
 
@@ -122,7 +126,7 @@ const goods = require('./goods');
 
     if(_.isEmpty(payInfo.order_id)) return cb(null, '09');
 
-    logger.trace('notice param order_id: %s', id);
+    logger.debug('notice param order_id: %s', payInfo.order_id);
 
     // ------------------------------------------------------
 
@@ -134,12 +138,20 @@ const goods = require('./goods');
 
         new Promise(step1.bind(null, payInfo, conn)).then(function(){
           return new Promise(step2.bind(null, payInfo, conn));
-        }).then(function (order_info){
+        }).then(function(){
           return new Promise(step3.bind(null, payInfo, conn));
         }).then(function(){
-          return new Promise(step4.bind(null, payInfo, conn));
-        }).then(function (goods_info){
-          return new Promise(step5.bind(null, payInfo, conn, goods_info));
+
+          conn.commit(function (err){
+            if(err) return conn.rollback(function(){ cb(err); });
+          });
+
+            return new Promise(step4.bind(null, payInfo));
+
+
+        }).then(function (user_info){
+
+          cb(null, null, user_info);
         }).catch(err => {
           conn.rollback(function(){
             if('object' === typeof err) return cb(err);

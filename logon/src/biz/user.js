@@ -77,8 +77,17 @@ const logger = require('log4js').getLogger('user');
    * @return
    */
   exports.getById = function(id, cb){
+
+    console.log(id)
+
+
+    console.log('----')
+
+
+
     mysql.query(sql, [id], (err, docs) => {
       if(err) return cb(err);
+
       cb(null, mysql.checkOnly(docs) ? docs[0] : null);
     });
   };
@@ -450,7 +459,7 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
 
     conn.query(sql, [purchase_count, id], (err, status) => {
       if(err) return cb(err);
-      logger.trace('updatePurchase status: %j', status);
+      logger.debug('updatePurchase status: %j', status);
       cb(null, status);
     });
   };
@@ -467,10 +476,10 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
    *
    * @return
    */
-  exports.updateVip = function(id, cb){
-    mysql.query(sql, [id, id], (err, status) => {
+  exports.updateVip = function(id, cb, conn){
+    conn.query(sql, [id, id], (err, status) => {
       if(err) return cb(err);
-        cb(null, status);
+      cb(null, status);
     });
   };
 })();

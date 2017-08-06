@@ -16,6 +16,8 @@ const log4js = require('log4js');
 
 const logger = log4js.getLogger('notice');
 
+const _ = require('underscore');
+
 exports.indexUI = function(req, res, next){
 
   biz.notice.findAll(function (err, docs){
@@ -108,29 +110,31 @@ exports.del = function(req, res, next){
     res.send('OK');
 
     biz.payment.notice(query, function (err, doc){
-      if(err) return next(err);
-      if(!doc) return;
 
-      if(!client) return;
+      console.log(arguments)
+    //   if(err) return next(err);
+    //   if(!doc) return;
 
-      var user_info = doc;
+    //   if(!client) return;
 
-      biz.frontend.findAll(function (err, docs){
-        if(err) return next(err);
-        if(!docs) return;
-        if(0 === docs.length) return;
+    //   var user_info = doc;
 
-        var data = JSON.stringify({
-          method:   1012,
-          receiver: 'ALL',
-          data:     user_info
-        });
+    //   biz.frontend.findAll(function (err, docs){
+    //     if(err) return next(err);
+    //     if(!docs) return;
+    //     if(0 === docs.length) return;
 
-        for(let i of docs){
-          client.send('/queue/back.send.v2.'+ i, { priority: 8 }, data);
-        }
+    //     var data = JSON.stringify({
+    //       method:   1012,
+    //       receiver: 'ALL',
+    //       data:     user_info
+    //     });
 
-      });
+    //     for(let i of docs){
+    //       client.send('/queue/back.send.v2.'+ i, { priority: 8 }, data);
+    //     }
+
+    //   });
     });
   };
 
