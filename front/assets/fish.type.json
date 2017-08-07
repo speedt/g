@@ -134,7 +134,7 @@
 		"notify": false
 	},{
 		"name": "fish12",
-		"probability": 0.193,
+		"probability": 0.196,
 		"weight": 10,
 		"hp": 15,
 		"loop": true,
@@ -146,7 +146,7 @@
 		"notify": false
 	},{
 		"name": "fish13",
-		"probability": 0.158,
+		"probability": 0.161,
 		"weight": 10,
 		"hp": 18,
 		"loop": true,
@@ -158,7 +158,7 @@
 		"notify": false
 	},{
 		"name": "fish14",
-		"probability": 0.128,
+		"probability": 0.131,
 		"weight": 12,
 		"hp": 22,
 		"loop": false,
@@ -170,7 +170,7 @@
 		"notify": false
 	},{
 		"name": "fish15",
-		"probability": 0.103,
+		"probability": 0.106,
 		"weight": 15,
 		"hp": 25,
 		"loop": false,
@@ -182,7 +182,7 @@
 		"notify": false
 	},{
 		"name": "fish16",
-		"probability": 0.083,
+		"probability": 0.088,
 		"weight": 15,
 		"hp": 35,
 		"loop": false,
@@ -194,7 +194,7 @@
 		"notify": false
 	},{
 		"name": "fish17",
-		"probability": 0.065,
+		"probability": 0.072,
 		"weight": 15,
 		"hp": 40,
 		"loop": false,
@@ -206,7 +206,7 @@
 		"notify": false
 	},{
 		"name": "fish18",
-		"probability": 0.05,
+		"probability": 0.057,
 		"weight": 15,
 		"hp": 50,
 		"loop": false,
@@ -218,7 +218,7 @@
 		"notify": false
 	},{
 		"name": "fish19",
-		"probability": 0.038,
+		"probability": 0.046,
 		"weight": 15,
 		"hp": 55,
 		"loop": false,
@@ -230,7 +230,7 @@
 		"notify": false
 	},{
 		"name": "金钢盔",
-		"probability": 0.029,
+		"probability": 0.037,
 		"weight": 20,
 		"hp": 55,
 		"loop": false,
@@ -242,7 +242,7 @@
 		"notify": false
 	},{
 		"name": "金蟾蜍",
-		"probability": 0.02,
+		"probability": 0.028,
 		"weight": 20,
 		"hp": 60,
 		"loop": false,
@@ -254,7 +254,7 @@
 		"notify": true
 	},{
 		"name": "金水母",
-		"probability": 0.012,
+		"probability": 0.02,
 		"weight": 20,
 		"hp": 65,
 		"loop": false,
@@ -266,7 +266,7 @@
 		"notify": true
 	},{
 		"name": "金玳瑁",
-		"probability": 0.005,
+		"probability": 0.013,
 		"weight": 20,
 		"hp": 65,
 		"loop": false,
@@ -278,7 +278,7 @@
 		"notify": true
 	},{
 		"name": "金龙",
-		"probability": 0.002,
+		"probability": 0.01,
 		"weight": 20,
 		"hp": 75,
 		"loop": false,
