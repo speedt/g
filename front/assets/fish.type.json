@@ -9,7 +9,7 @@
 		"dead_probability": 0.65,
 		"money_min": 2,
 		"money_max": 2,
-		"tool_probability": 0,
+		"tool_probability": 0.05,
 		"tool_max": 1,
 		"notify": false
 	}, {
@@ -21,7 +21,7 @@
 		"dead_probability": 0.65,
 		"money_min": 2,
 		"money_max": 2,
-		"tool_probability": 0,
+		"tool_probability": 0.05,
 		"tool_max": 1,
 		"notify": false
 	}, {
@@ -33,7 +33,7 @@
 		"dead_probability": 0.65,
 		"money_min": 4,
 		"money_max": 4,
-		"tool_probability": 0,
+		"tool_probability": 0.05,
 		"tool_max": 2,
 		"notify": false
 	}, {
@@ -45,7 +45,7 @@
 		"dead_probability": 0.65,
 		"money_min": 5,
 		"money_max": 5,
-		"tool_probability": 0,
+		"tool_probability": 0.05,
 		"tool_max": 2,
 		"notify": false
 	}, {
@@ -57,7 +57,7 @@
 		"dead_probability": 0.65,
 		"money_min": 6,
 		"money_max": 6,
-		"tool_probability": 0,
+		"tool_probability": 0.04,
 		"tool_max": 3,
 		"notify": false
 	}, {
@@ -69,7 +69,7 @@
 		"dead_probability": 0.65,
 		"money_min": 7,
 		"money_max": 7,
-		"tool_probability": 0,
+		"tool_probability": 0.04,
 		"tool_max": 3,
 		"notify": false
 	}, {
@@ -81,7 +81,7 @@
 		"dead_probability": 0.65,
 		"money_min": 8,
 		"money_max": 8,
-		"tool_probability":0,
+		"tool_probability":0.04,
 		"tool_max": 4,
 		"notify": false
 	}, {
@@ -93,7 +93,7 @@
 		"dead_probability": 0.65,
 		"money_min": 9,
 		"money_max": 9,
-		"tool_probability": 0,
+		"tool_probability": 0.04,
 		"tool_max": 4,
 		"notify": false
 	}, {
@@ -105,7 +105,7 @@
 		"dead_probability": 0.65,
 		"money_min": 10,
 		"money_max": 10,
-		"tool_probability": 0,
+		"tool_probability": 0.05,
 		"tool_max": 5,
 		"notify": false
 	}, {
@@ -117,7 +117,7 @@
 		"dead_probability": 0.65,
 		"money_min": 12,
 		"money_max": 12,
-		"tool_probability": 0,
+		"tool_probability": 0.05,
 		"tool_max": 5,
 		"notify": false
 	}, {
@@ -129,7 +129,7 @@
 		"dead_probability": 0.65,
 		"money_min": 15,
 		"money_max": 15,
-		"tool_probability": 0,
+		"tool_probability": 0.05,
 		"tool_max": 6,
 		"notify": false
 	},{
@@ -141,7 +141,7 @@
 		"dead_probability": 0.65,
 		"money_min": 18,
 		"money_max": 18,
-		"tool_probability": 0,
+		"tool_probability": 0.05,
 		"tool_max": 6,
 		"notify": false
 	},{
@@ -153,7 +153,7 @@
 		"dead_probability": 0.65,
 		"money_min": 20,
 		"money_max": 20,
-		"tool_probability": 0.0,
+		"tool_probability": 0.05,
 		"tool_max": 7,
 		"notify": false
 	},{
