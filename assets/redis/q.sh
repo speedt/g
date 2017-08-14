@@ -104,4 +104,8 @@ echo "fishjoy_tool.lua"
 /root/my/redis/redis-3.2.6/src/redis-cli -a 123456 -p 12379 script load "$(cat /root/my/git/speedt/g/assets/redis/fishjoy_tool.lua)"
 
 echo ""
+echo "fishjoy_gift.lua"
+/root/my/redis/redis-3.2.6/src/redis-cli -a 123456 -p 12379 script load "$(cat /root/my/git/speedt/g/assets/redis/fishjoy_gift.lua)"
+
+echo ""
 /root/my/redis/redis-3.2.6/src/redis-cli -a 123456 -p 12379 --eval /root/my/git/speedt/g/assets/redis/init.lua 1 ,

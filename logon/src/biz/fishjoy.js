@@ -16,6 +16,7 @@ const EventProxy = require('eventproxy');
 
 const utils = require('speedt-utils').utils;
 
+const mysql = require('emag.db').mysql;
 const redis = require('emag.db').redis;
 
 const fishpondPool = require('emag.model').fishpondPool;
@@ -626,6 +627,38 @@ exports.blast = function(server_id, channel_id, blast, cb){
       seconds, fish_type, money, gift, _.now(), (err, doc) => {
         if(err) return cb(err);
         cb(null, doc);
+    });
+  };
+})();
+
+(() => {
+  const numkeys = 4;
+  const sha1 = '1b880c8a1e00a1927b3786740ad02b518e89813f';
+
+  /**
+   *
+   * fishjoy_gift.lua
+   *
+   * @return
+   */
+  exports.exchange = function(server_id, channel_id, gift, cb){
+
+    if(!_.isString(gift.card_type_id)) return;
+
+    redis.evalsha(sha1, numkeys, conf.redis.database, server_id, channel_id, gift.card_type_id, (err, code) => {
+      if(err) return cb(err);
+      if(!code) return cb(null, 'error');
+
+      biz.gift.saveNew({
+        user_id:      code,
+        linkman:      gift.linkman,
+        mobile:       gift.mobile,
+        addr:         gift.addr,
+        card_type_id: gift.card_type_id,
+      }, function (err, status){
+        if(err) return cb(err);
+        cb();
+      });
     });
   };
 })();

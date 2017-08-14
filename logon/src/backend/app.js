@@ -118,11 +118,12 @@ biz.cfg.init(function (err, res){
     _3001_group_search = client.subscribe('/queue/qq.3001', handle.group.search.bind(null, client));
     _3005_group_quit   = client.subscribe('/queue/qq.3005',   handle.group.quit.bind(null, client));
 
-    _5001_fishjoy_shot   = client.subscribe('/queue/qq.5001',                handle.fishjoy.shot.bind(null, client));
-    _5003_fishjoy_blast  = client.subscribe('/queue/qq.5003.'+ conf.app.id, handle.fishjoy.blast.bind(null, client));
-    _5005_fishjoy_ready  = client.subscribe('/queue/qq.5005',               handle.fishjoy.ready.bind(null, client));
-    _5011_fishjoy_tool   = client.subscribe('/queue/qq.5011.'+ conf.app.id,  handle.fishjoy.tool.bind(null, client));
-    _5013_fishjoy_switch = client.subscribe('/queue/qq.5013',              handle.fishjoy.switch.bind(null, client));
+    _5001_fishjoy_shot     = client.subscribe('/queue/qq.5001',                  handle.fishjoy.shot.bind(null, client));
+    _5003_fishjoy_blast    = client.subscribe('/queue/qq.5003.'+ conf.app.id,   handle.fishjoy.blast.bind(null, client));
+    _5005_fishjoy_ready    = client.subscribe('/queue/qq.5005',                 handle.fishjoy.ready.bind(null, client));
+    _5011_fishjoy_tool     = client.subscribe('/queue/qq.5011.'+ conf.app.id,    handle.fishjoy.tool.bind(null, client));
+    _5013_fishjoy_switch   = client.subscribe('/queue/qq.5013',                handle.fishjoy.switch.bind(null, client));
+    _5021_fishjoy_exchange = client.subscribe('/queue/qq.5021',              handle.fishjoy.exchange.bind(null, client));
   };
 
   function _unsubscribe(){
@@ -141,11 +142,12 @@ biz.cfg.init(function (err, res){
     if(_3001_group_search) _3001_group_search.unsubscribe();
     if(_3005_group_quit)     _3005_group_quit.unsubscribe();
 
-    if(_5001_fishjoy_shot)     _5001_fishjoy_shot.unsubscribe();
-    if(_5013_fishjoy_switch) _5013_fishjoy_switch.unsubscribe();
-    if(_5003_fishjoy_blast)   _5003_fishjoy_blast.unsubscribe();
-    if(_5005_fishjoy_ready)   _5005_fishjoy_ready.unsubscribe();
-    if(_5011_fishjoy_tool)     _5011_fishjoy_tool.unsubscribe();
+    if(_5001_fishjoy_shot)         _5001_fishjoy_shot.unsubscribe();
+    if(_5013_fishjoy_switch)     _5013_fishjoy_switch.unsubscribe();
+    if(_5003_fishjoy_blast)       _5003_fishjoy_blast.unsubscribe();
+    if(_5005_fishjoy_ready)       _5005_fishjoy_ready.unsubscribe();
+    if(_5011_fishjoy_tool)         _5011_fishjoy_tool.unsubscribe();
+    if(_5021_fishjoy_exchange) _5021_fishjoy_exchange.unsubscribe();
 
     if(!client) return;
 
@@ -209,6 +211,7 @@ biz.cfg.init(function (err, res){
 
   var _5001_fishjoy_shot, _5013_fishjoy_switch;
   var _5003_fishjoy_blast, _5005_fishjoy_ready, _5011_fishjoy_tool;
+  var _5021_fishjoy_exchange;
 
   // var on_5001_fishjoy_shot = function(msg){
   //   if(!msg.body) return logger.error('fishjoy shot empty');

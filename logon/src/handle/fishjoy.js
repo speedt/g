@@ -353,3 +353,38 @@ exports.tool = function(client, msg){
     }
   });
 };
+
+/**
+ *
+ */
+exports.exchange = function(client, msg){
+  if(!_.isString(msg.body)) return logger.error('fishjoy exchange empty');
+
+  try{ var data = JSON.parse(msg.body);
+  }catch(ex){ return; }
+
+  try{ var gift = JSON.parse(data.data);
+  }catch(ex){ return; }
+
+  biz.fishjoy.exchange(data.serverId, data.channelId, gift, function (err, code){
+    if(err) return logger.error('fishjoy exchange:', err);
+
+    var result = {
+      timestamp: new Date().getTime(),
+      method:    5022,
+      seqId:     data.seqId,
+      data:      { err: { msg: '余额不足' } },
+    };
+
+    if(code){
+      if(client) client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
+      return;
+    }
+
+    result.data = {};
+
+    if(client) client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
+  })
+
+
+};
