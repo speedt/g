@@ -110,6 +110,16 @@ exports.cardUI = function(req, res, next){
   });
 };
 
+exports.card = function(req, res, next){
+  var query = req.body;
+
+  biz.gift.editInfo(query, function (err, status){
+    if(err) return next(err);
+    res.send({});
+  });
+};
+
+
 exports.indexUI = function(req, res, next){
 
   biz.user.findAll(1, function (err, docs){

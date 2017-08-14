@@ -21,10 +21,10 @@ const redis = require('emag.db').redis;
 const _ = require('underscore');
 
 (() => {
-  var sql = 'SELECT c.value_, b.user_name, a.* FROM w_exchange a, s_user b, s_cfg c WHERE a.user_id=b.id AND a.user_id=? AND a.card_type_id=c.key_ AND c.type_="card_type" ORDER BY a.create_time DESC';
+  var sql = 'SELECT c.value_, b.user_name, a.* FROM w_exchange a, s_user b, s_cfg c WHERE a.user_id=b.id AND a.card_type_id=c.key_ AND c.type_="card_type" AND a.status=0 ORDER BY a.create_time DESC';
 
   exports.findAll = function(id, cb){
-    mysql.query(sql, [id], (err, docs) => {
+    mysql.query(sql, [null], (err, docs) => {
       if(err) return cb(err);
       cb(null, docs);
     });
