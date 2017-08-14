@@ -24,6 +24,7 @@ module.exports = function(app){
   app.get('/manage/goods/', manager.login_validate, goods.indexUI);
 
   app.get('/manage/user/gift/login$', manager.login_validate, user.giftLoginUI);
+  app.get('/manage/user/card$', manager.login_validate, user.cardUI);
   app.get('/manage/user/purchase$', manager.login_validate, user.purchaseUI);
   app.post('/manage/user/resetPwd$', manager.login_validate, user.resetPwd);
   app.post('/manage/user/del$', manager.login_validate, user.del);

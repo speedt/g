@@ -373,18 +373,17 @@ exports.exchange = function(client, msg){
       timestamp: new Date().getTime(),
       method:    5022,
       seqId:     data.seqId,
-      data:      { err: { msg: '余额不足' } },
+      receiver:  data.channelId,
+      data:     'Wrong'
     };
 
     if(code){
-      if(client) client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
+      if(client) client.send('/queue/back.send.v2.'+ data.serverId, { priority: 9 }, JSON.stringify(result));
       return;
     }
 
-    result.data = {};
+    result.data = 'OK';
 
-    if(client) client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
+    if(client) client.send('/queue/back.send.v2.'+ data.serverId, { priority: 9 }, JSON.stringify(result));
   })
-
-
 };

@@ -93,6 +93,23 @@ exports.purchaseUI = function(req, res, next){
   });
 };
 
+exports.cardUI = function(req, res, next){
+
+  var id = req.query.id;
+
+  biz.gift.findAll(id, function (err, docs){
+
+    res.render('user/card', {
+      conf: conf,
+      data: {
+        list_purchase: docs,
+        session_user:  req.session.user,
+        nav_choose:    ',03,0301,'
+      }
+    });
+  });
+};
+
 exports.indexUI = function(req, res, next){
 
   biz.user.findAll(1, function (err, docs){
