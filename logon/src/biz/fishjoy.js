@@ -517,7 +517,7 @@ exports.blast = function(server_id, channel_id, blast, cb){
 
       if(!fishpond) return;
 
-      fishpond.pause(cfg.sys['tool_freeze_time']);
+      fishpond.pause(cfg.sys['tool_freeze_time'] - 0);
 
       doc[1].push(1);
       logger.debug('freeze: %j', doc);
