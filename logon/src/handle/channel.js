@@ -15,7 +15,7 @@ const _ = require('underscore');
 
 const group = require('./group');
 
-exports.open = function(client, msg){
+exports.open = function(send, msg){
   if(!_.isString(msg.body)) return logger.error('channel open empty');
 
   var s = msg.body.split('::');
@@ -40,11 +40,11 @@ exports.open = function(client, msg){
       data:     extend_data,
     };
 
-    if(client) client.send('/queue/back.send.v2.'+ server_id, { priority: 9 }, JSON.stringify(sb));
+    send('/queue/back.send.v2.'+ server_id, { priority: 9 }, sb, () => {});
   });
 };
 
-exports.close = function(client, msg){
+exports.close = function(send, msg){
   if(!_.isString(msg.body)) return logger.error('channel close empty');
 
   var s = msg.body.split('::');
@@ -52,7 +52,7 @@ exports.close = function(client, msg){
   var server_id  = s[0];
   var channel_id = s[1];
 
-  group._quit(client, server_id, channel_id, 0, function (err){
+  group._quit(send, server_id, channel_id, 0, function (err){
     if(err) return logger.error('group quit:', err);
     logger.info('group quit: %j', s);
 
@@ -63,7 +63,7 @@ exports.close = function(client, msg){
   });
 };
 
-exports.money = function(client, msg){
+exports.money = function(send, msg){
   if(!_.isString(msg.body)) return logger.error('channel money empty');
 
   try{ var data = JSON.parse(msg.body);
@@ -77,6 +77,6 @@ exports.money = function(client, msg){
     data.method   = 1016;
     data.receiver = data.channelId;
     data.data     = doc;
-    if(client) client.send('/queue/back.send.v2.'+ data.serverId, { priority: 9 }, JSON.stringify(data));
+    send('/queue/back.send.v2.'+ data.serverId, { priority: 9 }, data, () => {});
   });
 };

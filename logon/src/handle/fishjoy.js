@@ -16,7 +16,7 @@ const _ = require('underscore');
 /**
  *
  */
-function _ready_ready(client, server_id, channel_id, seq_id, err, doc){
+function _ready_ready(send, server_id, channel_id, seq_id, err, doc){
   if(err) return logger.error('fishjoy ready:', err);
 
   if(_.isArray(doc)){
@@ -40,14 +40,14 @@ function _ready_ready(client, server_id, channel_id, seq_id, err, doc){
         if(!s)               continue;
         if(!result.receiver) continue;
 
-        client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
+        send('/queue/back.send.v2.'+ s, { priority: 9 }, result, () => {});
       }
     })());
   }
 
   switch(doc){
     case 'invalid_user_id':
-      return client.send('/queue/front.force.v2.'+ server_id, { priority: 9 }, channel_id);
+      return send('/queue/front.force.v2.'+ server_id, { priority: 9 }, channel_id, () => {});
     default: break;
   }
 }
@@ -55,7 +55,7 @@ function _ready_ready(client, server_id, channel_id, seq_id, err, doc){
 /**
  *
  */
-function _ready_refresh(client, seq_id, err, doc){
+function _ready_refresh(send, seq_id, err, doc){
   if(err) return logger.error('fishjoy refresh:', err);
 
   if(!_.isArray(doc)) return;
@@ -77,14 +77,14 @@ function _ready_refresh(client, seq_id, err, doc){
     if(!s)               continue;
     if(!result.receiver) continue;
 
-    client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
+    send('/queue/back.send.v2.'+ s, { priority: 9 }, result, () => {});
   }
 }
 
 /**
  *
  */
-function _ready_scene(client, seq_id, err, doc){
+function _ready_scene(send, seq_id, err, doc){
   if(err) return logger.error('fishjoy scene:', err);
 
   if(!_.isArray(doc)) return;
@@ -104,14 +104,14 @@ function _ready_scene(client, seq_id, err, doc){
     if(!s)               continue;
     if(!result.receiver) continue;
 
-    client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
+    send('/queue/back.send.v2.'+ s, { priority: 9 }, result, () => {});
   }
 }
 
 /**
  *
  */
-function _ready_unfreeze(client, seq_id, err, doc){
+function _ready_unfreeze(send, seq_id, err, doc){
   if(err) return logger.error('fishjoy unfreeze:', err);
 
   if(!_.isArray(doc)) return;
@@ -132,30 +132,30 @@ function _ready_unfreeze(client, seq_id, err, doc){
     if(!s)               continue;
     if(!result.receiver) continue;
 
-    client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
+    send('/queue/back.send.v2.'+ s, { priority: 9 }, result, () => {});
   }
 }
 
 /**
  *
  */
-exports.ready = function(client, msg){
+exports.ready = function(send, msg){
   if(!_.isString(msg.body)) return logger.error('fishjoy ready empty');
 
   try{ var data = JSON.parse(msg.body);
   }catch(ex){ return; }
 
   biz.fishjoy.ready(data.serverId, data.channelId,
-       _ready_ready.bind(null, client, data.serverId, data.channelId, data.seqId),
-     _ready_refresh.bind(null, client, data.seqId),
-       _ready_scene.bind(null, client, data.seqId),
-    _ready_unfreeze.bind(null, client, data.seqId));
+       _ready_ready.bind(null, send, data.serverId, data.channelId, data.seqId),
+     _ready_refresh.bind(null, send, data.seqId),
+       _ready_scene.bind(null, send, data.seqId),
+    _ready_unfreeze.bind(null, send, data.seqId));
 };
 
 /**
  *
  */
-exports.switch = function(client, msg){
+exports.switch = function(send, msg){
   if(!_.isString(msg.body)) return logger.error('fishjoy switch empty');
 
   try{ var data = JSON.parse(msg.body);
@@ -187,14 +187,14 @@ exports.switch = function(client, msg){
           if(!s)               continue;
           if(!result.receiver) continue;
 
-          client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
+          send('/queue/back.send.v2.'+ s, { priority: 9 }, result, () => {});
         }
       })());
     }
 
     switch(doc){
       case 'invalid_user_id':
-        return client.send('/queue/front.force.v2.'+ data.serverId, { priority: 9 }, data.channelId);
+        return send('/queue/front.force.v2.'+ data.serverId, { priority: 9 }, data.channelId, () => {});
     }
   });
 };
@@ -202,7 +202,7 @@ exports.switch = function(client, msg){
 /**
  *
  */
-exports.shot = function(client, msg){
+exports.shot = function(send, msg){
   if(!_.isString(msg.body)) return logger.error('fishjoy shot empty');
 
   try{ var data = JSON.parse(msg.body);
@@ -232,14 +232,14 @@ exports.shot = function(client, msg){
           if(!s)               continue;
           if(!result.receiver) continue;
 
-          client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
+          send('/queue/back.send.v2.'+ s, { priority: 9 }, result, () => {});
         }
       })());
     }
 
     switch(doc){
       case 'invalid_user_id':
-        return client.send('/queue/front.force.v2.'+ data.serverId, { priority: 9 }, data.channelId);
+        return send('/queue/front.force.v2.'+ data.serverId, { priority: 9 }, data.channelId, () => {});
     }
   });
 };
@@ -247,7 +247,7 @@ exports.shot = function(client, msg){
 /**
  *
  */
-exports.blast = function(client, msg){
+exports.blast = function(send, msg){
   if(!_.isString(msg.body)) return logger.error('fishjoy blast empty');
 
   try{ var data = JSON.parse(msg.body);
@@ -277,7 +277,7 @@ exports.blast = function(client, msg){
           if(!s)               continue;
           if(!result.receiver) continue;
 
-          client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
+          send('/queue/back.send.v2.'+ s, { priority: 9 }, result, () => {});
         }
 
         // notify all
@@ -295,7 +295,7 @@ exports.blast = function(client, msg){
           });
 
           for(let i of docs){
-            client.send('/queue/back.send.v2.'+ i, { priority: 8 }, data);
+            send('/queue/back.send.v2.'+ i, { priority: 8 }, data, () => {});
           }
         });
 
@@ -304,7 +304,7 @@ exports.blast = function(client, msg){
 
     switch(doc){
       case 'invalid_user_id':
-        return client.send('/queue/front.force.v2.'+ data.serverId, { priority: 9 }, data.channelId);
+        return send('/queue/front.force.v2.'+ data.serverId, { priority: 9 }, data.channelId, () => {});
     }
   });
 };
@@ -312,7 +312,7 @@ exports.blast = function(client, msg){
 /**
  *
  */
-exports.tool = function(client, msg){
+exports.tool = function(send, msg){
   if(!_.isString(msg.body)) return logger.error('fishjoy tool empty');
 
   try{ var data = JSON.parse(msg.body);
@@ -342,14 +342,14 @@ exports.tool = function(client, msg){
           if(!s)               continue;
           if(!result.receiver) continue;
 
-          client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
+          send('/queue/back.send.v2.'+ s, { priority: 9 }, result, () => {});
         }
       })());
     }
 
     switch(doc){
       case 'invalid_user_id':
-        return client.send('/queue/front.force.v2.'+ data.serverId, { priority: 9 }, data.channelId);
+        return send('/queue/front.force.v2.'+ data.serverId, { priority: 9 }, data.channelId, () => {});
     }
   });
 };
@@ -357,7 +357,7 @@ exports.tool = function(client, msg){
 /**
  *
  */
-exports.exchange = function(client, msg){
+exports.exchange = function(send, msg){
   if(!_.isString(msg.body)) return logger.error('fishjoy exchange empty');
 
   try{ var data = JSON.parse(msg.body);
@@ -378,12 +378,12 @@ exports.exchange = function(client, msg){
     };
 
     if(code){
-      if(client) client.send('/queue/back.send.v2.'+ data.serverId, { priority: 9 }, JSON.stringify(result));
+      send('/queue/back.send.v2.'+ data.serverId, { priority: 9 }, result, () => {});
       return;
     }
 
     result.data = 'OK';
 
-    if(client) client.send('/queue/back.send.v2.'+ data.serverId, { priority: 9 }, JSON.stringify(result));
+    send('/queue/back.send.v2.'+ data.serverId, { priority: 9 }, result, () => {});
   })
 };

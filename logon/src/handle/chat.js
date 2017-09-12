@@ -15,7 +15,7 @@ const _ = require('underscore');
 /**
  *
  */
-exports.one_for_one = function(client, msg){
+exports.one_for_one = function(send, msg){
   if(!_.isString(msg.body)) return logger.error('chat one_for_one empty');
 
   try{ var data = JSON.parse(msg.body);
@@ -29,13 +29,13 @@ exports.one_for_one = function(client, msg){
 
   logger.debug('chat one_for_one: %j', data);
 
-  if(client) client.send('/queue/back.send.v2.'+ data.serverId, { priority: 9 }, JSON.stringify(data));
+  send('/queue/back.send.v2.'+ data.serverId, { priority: 9 }, data, () => {});
 };
 
 /**
  *
  */
-exports.one_for_group = function(client, msg){
+exports.one_for_group = function(send, msg){
   if(!_.isString(msg.body)) return logger.error('chat one_for_group empty');
 
   try{ var data = JSON.parse(msg.body);
@@ -70,14 +70,14 @@ exports.one_for_group = function(client, msg){
           if(!s)               continue;
           if(!result.receiver) continue;
 
-          client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
+          send('/queue/back.send.v2.'+ s, { priority: 9 }, result, () => {});
         }
       })());
     }
 
     switch(doc){
       case 'invalid_user_id':
-        return client.send('/queue/front.force.v2.'+ data.serverId, { priority: 9 }, data.channelId);
+        return send('/queue/front.force.v2.'+ data.serverId, { priority: 9 }, data.channelId, () => {});
     }
   });
 };

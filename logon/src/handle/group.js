@@ -13,13 +13,13 @@ const logger = log4js.getLogger('handle');
 
 const _ = require('underscore');
 
-exports.search = function(client, msg){
+exports.search = function(send, msg){
   if(!_.isString(msg.body)) return logger.error('group search empty');
 
   try{ var data = JSON.parse(msg.body);
   }catch(ex){ return; }
 
-  _quit(client, data.serverId, data.channelId, data.seqId, function (err){
+  _quit(send, data.serverId, data.channelId, data.seqId, function (err){
     if(err) return logger.error('group quit:', err);
     logger.info('group quit: success');
 
@@ -46,7 +46,7 @@ exports.search = function(client, msg){
             if(!s)               continue;
             if(!result.receiver) continue;
 
-            client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
+            send('/queue/back.send.v2.'+ s, { priority: 9 }, result, () => {});
           }
         })());
       }
@@ -54,26 +54,25 @@ exports.search = function(client, msg){
       switch(doc){
         case 'invalid_user_id':
         case 'invalid_group_type':
-          return client.send('/queue/front.force.v2.'+ data.serverId, { priority: 9 }, data.channelId);
+          return send('/queue/front.force.v2.'+ data.serverId, { priority: 9 }, data.channelId, () => {});
       }
     });
   });
 };
 
-exports.quit = function(client, msg){
+exports.quit = function(send, msg){
   if(!_.isString(msg.body)) return logger.error('group quit empty');
 
   try{ var data = JSON.parse(msg.body);
   }catch(ex){ return; }
 
-  _quit(client, data.serverId, data.channelId, data.seqId, function (err){
+  _quit(send, data.serverId, data.channelId, data.seqId, function (err){
     if(err) return logger.error('group quit:', err);
     logger.info('group quit: success');
   });
 };
 
-var _quit = exports._quit = function(client, server_id, channel_id, seq_id, cb){
-  if(!client)     return;
+var _quit = exports._quit = function(send, server_id, channel_id, seq_id, cb){
   if(!server_id)  return;
   if(!channel_id) return;
 
@@ -98,7 +97,7 @@ var _quit = exports._quit = function(client, server_id, channel_id, seq_id, cb){
         if(!s)               continue;
         if(!result.receiver) continue;
 
-        client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
+        send('/queue/back.send.v2.'+ s, { priority: 9 }, result, () => {});
       }
 
       return cb();
@@ -107,7 +106,7 @@ var _quit = exports._quit = function(client, server_id, channel_id, seq_id, cb){
     switch(doc){
       case 'OK': return cb();
       case 'invalid_user_id':
-        return client.send('/queue/front.force.v2.'+ server_id, { priority: 9 }, channel_id);
+        return send('/queue/front.force.v2.'+ server_id, { priority: 9 }, channel_id, () => {});
     }
   });
 };
