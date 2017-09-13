@@ -2,7 +2,7 @@
 	"ver": 124,
 	"data": [{
 		"name": "fish1",
-		"probability": 0.939,
+		"probability": 0.929,
 		"weight": 1,
 		"hp": 1,
 		"loop": true,
@@ -14,7 +14,7 @@
 		"notify": false
 	}, {
 		"name": "fish2",
-		"probability": 0.879,
+		"probability": 0.859,
 		"weight": 2,
 		"hp": 1,
 		"loop": true,
@@ -26,7 +26,7 @@
 		"notify": false
 	}, {
 		"name": "fish3",
-		"probability": 0.819,
+		"probability": 0.799,
 		"weight": 3,
 		"hp": 2,
 		"loop": true,
@@ -38,7 +38,7 @@
 		"notify": false
 	}, {
 		"name": "fish4",
-		"probability": 0.749,
+		"probability": 0.719,
 		"weight": 4,
 		"hp": 3,
 		"loop": true,
@@ -50,7 +50,7 @@
 		"notify": false
 	}, {
 		"name": "fish5",
-		"probability": 0.662,
+		"probability": 0.612,
 		"weight": 5,
 		"hp": 4,
 		"loop": true,
@@ -62,7 +62,7 @@
 		"notify": false
 	}, {
 		"name": "fish6",
-		"probability": 0.577,
+		"probability": 0.517,
 		"weight": 5,
 		"hp": 5,
 		"loop": true,
@@ -74,7 +74,7 @@
 		"notify": false
 	}, {
 		"name": "fish7",
-		"probability": 0.497,
+		"probability": 0.417,
 		"weight": 8,
 		"hp": 6,
 		"loop": true,
@@ -86,7 +86,7 @@
 		"notify": false
 	}, {
 		"name": "fish8",
-		"probability": 0.435,
+		"probability": 0.345,
 		"weight": 9,
 		"hp": 7,
 		"loop": true,
@@ -98,7 +98,7 @@
 		"notify": false
 	}, {
 		"name": "fish9",
-		"probability": 0.39,
+		"probability": 0.3,
 		"weight": 8,
 		"hp": 8,
 		"loop": true,
@@ -110,7 +110,7 @@
 		"notify": false
 	}, {
 		"name": "fish10",
-		"probability": 0.35,
+		"probability": 0.26,
 		"weight": 9,
 		"hp": 10,
 		"loop": true,
@@ -122,7 +122,7 @@
 		"notify": false
 	}, {
 		"name": "fish11",
-		"probability": 0.32,
+		"probability": 0.23,
 		"weight": 10,
 		"hp": 12,
 		"loop": true,
@@ -134,7 +134,7 @@
 		"notify": false
 	},{
 		"name": "fish12",
-		"probability": 0.295,
+		"probability": 0.195,
 		"weight": 10,
 		"hp": 14,
 		"loop": true,
@@ -146,7 +146,7 @@
 		"notify": false
 	},{
 		"name": "fish13",
-		"probability": 0.274,
+		"probability": 0.179,
 		"weight": 10,
 		"hp": 17,
 		"loop": true,
@@ -158,7 +158,7 @@
 		"notify": false
 	},{
 		"name": "fish14",
-		"probability": 0.251,
+		"probability": 0.164,
 		"weight": 12,
 		"hp": 20,
 		"loop": false,
@@ -170,7 +170,7 @@
 		"notify": false
 	},{
 		"name": "fish15",
-		"probability": 0.231,
+		"probability": 0.15,
 		"weight": 15,
 		"hp": 25,
 		"loop": false,
@@ -182,7 +182,7 @@
 		"notify": false
 	},{
 		"name": "fish16",
-		"probability": 0.207,
+		"probability": 0.137,
 		"weight": 15,
 		"hp": 35,
 		"loop": false,
@@ -194,7 +194,7 @@
 		"notify": false
 	},{
 		"name": "fish17",
-		"probability": 0.185,
+		"probability": 0.124,
 		"weight": 15,
 		"hp": 60,
 		"loop": false,
@@ -206,7 +206,7 @@
 		"notify": false
 	},{
 		"name": "fish18",
-		"probability": 0.162,
+		"probability": 0.101,
 		"weight": 15,
 		"hp": 40,
 		"loop": false,
@@ -218,7 +218,7 @@
 		"notify": false
 	},{
 		"name": "fish19",
-		"probability": 0.138,
+		"probability": 0.088,
 		"weight": 15,
 		"hp": 60,
 		"loop": false,
@@ -230,7 +230,7 @@
 		"notify": false
 	},{
 		"name": "金钢盔",
-		"probability": 0.115,
+		"probability": 0.065,
 		"weight": 20,
 		"hp": 70,
 		"loop": false,
@@ -242,7 +242,7 @@
 		"notify": false
 	},{
 		"name": "金蟾蜍",
-		"probability": 0.09,
+		"probability": 0.052,
 		"weight": 20,
 		"hp": 120,
 		"loop": false,
@@ -254,7 +254,7 @@
 		"notify": true
 	},{
 		"name": "金水母",
-		"probability": 0.065,
+		"probability": 0.039,
 		"weight": 20,
 		"hp": 130,
 		"loop": false,
@@ -266,7 +266,7 @@
 		"notify": true
 	},{
 		"name": "金玳瑁",
-		"probability": 0.04,
+		"probability": 0.026,
 		"weight": 20,
 		"hp": 160,
 		"loop": false,
@@ -278,7 +278,7 @@
 		"notify": true
 	},{
 		"name": "金龙",
-		"probability": 0.015,
+		"probability": 0.013,
 		"weight": 20,
 		"hp": 180,
 		"loop": false,
