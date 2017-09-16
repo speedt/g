@@ -20,12 +20,68 @@ const mysql = require('emag.db').mysql;
 const redis = require('emag.db').redis;
 
 const cfg = require('emag.cfg');
+const biz = require('emag.biz');
 
 const server = require('./server');
 
 const _ = require('underscore');
 
 const logger = require('log4js').getLogger('user');
+
+const anysdk = require('speedt-anysdk');
+
+(() => {
+  /**
+   * 微信登陆
+   *
+   * @return
+   */
+  exports.wx = function(logInfo /* 用户名及密码 */){
+    return new Promise((resolve, reject) => {
+      anysdk.wx(logInfo)
+      .then(p2)
+      .then(data => resolve(data))
+      .catch(reject);
+    });
+  };
+
+  function p2(data){
+    var _data = _.clone(data);
+
+    return new Promise((resolve, reject) => {
+      biz.user.getById(data.data.user_info.openid)
+      .then(p3.bind(null, data.data.user_info))
+      .then(() => resolve(_data))
+      .catch(reject);
+    });
+  }
+
+  var sql = 'UPDATE s_user SET nickname=?, sex=?, original_data=?, weixin=?, weixin_avatar=? WHERE id=?'
+
+  function p3(user_info, user){
+    if(!user) return biz.user.registerWX(user_info);
+
+    user.original_data = JSON.stringify(user_info);
+    user.nickname      = user_info.nickname;
+    user.sex           = user_info.sex;
+    user.weixin        = user_info.unionid;
+    user.weixin_avatar = user_info.headimgurl;
+
+    return new Promise((resolve, reject) => {
+      mysql.query(sql, [
+        user.nickname,
+        user.sex,
+        user.original_data,
+        user.weixin,
+        user.weixin_avatar,
+        user.id,
+      ], err => {
+        if(err) return reject(err);
+        resolve(user);
+      });
+    });
+  }
+})();
 
 (() => {
   var sql = 'SELECT b.user_name, c.goods_name, a.* FROM (SELECT * FROM s_user_purchase WHERE user_id=?) a LEFT JOIN s_user b ON (a.user_id=b.id) LEFT JOIN w_goods c ON (a.goods_id=c.id) WHERE b.id IS NOT NULL AND c.id IS NOT NULL ORDER BY a.create_time DESC';
@@ -125,6 +181,27 @@ const logger = require('log4js').getLogger('user');
   // 6-16个字符，支持英文大小写、数字、下划线，区分大小写
   var regex_user_pass = /^[a-zA-Z0-9_]{6,16}$/;
 
+  /**
+   * 微信注册
+   *
+   * @return
+   */
+  exports.registerWX = function(user_info){
+    user_info.original_data = JSON.stringify(user_info);
+    user_info.id            = user_info.openid;
+    user_info.user_name     = user_info.openid;
+    user_info.user_pass     = '654321';
+    user_info.weixin        = user_info.unionid;
+    user_info.weixin_avatar = user_info.headimgurl;
+
+    return new Promise((resolve, reject) => {
+      biz.user.register(user_info, function (err){
+        if(err) return reject();
+        resolve();
+      });
+    });
+  };
+
   function formVali(newInfo){
     newInfo.user_name = newInfo.user_name || '';
     newInfo.user_name = newInfo.user_name.trim();
@@ -135,7 +212,7 @@ const logger = require('log4js').getLogger('user');
     if(!regex_user_name.test(newInfo.user_pass)) return '密码不能为空';
   }
 
-  var sql = 'INSERT INTO s_user (id, user_name, user_pass, status, sex, create_time, mobile, qq, weixin, email, device_code, score, bullet_level, tool_1, tool_2, tool_3, tool_4, tool_5, tool_6, tool_7, tool_8, tool_9, nickname, diamond, vip, purchase_count) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+  var sql = 'INSERT INTO s_user (id, user_name, user_pass, status, sex, create_time, mobile, qq, weixin, weixin_avatar, email, device_code, score, bullet_level, tool_1, tool_2, tool_3, tool_4, tool_5, tool_6, tool_7, tool_8, tool_9, nickname, diamond, vip, purchase_count, original_data) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 
   exports.register = function(newInfo, cb){
 
@@ -151,7 +228,7 @@ const logger = require('log4js').getLogger('user');
 
       // params
       var postData = [
-        utils.replaceAll(uuid.v1(), '-', ''),
+        newInfo.id || utils.replaceAll(uuid.v1(), '-', ''),
         newInfo.user_name,
         md5.hex(newInfo.user_pass),
         newInfo.status      || 1,
@@ -160,6 +237,7 @@ const logger = require('log4js').getLogger('user');
         newInfo.mobile      || '',
         newInfo.qq          || '',
         newInfo.weixin      || '',
+        newInfo.weixin_avatar,
         newInfo.email       || '',
         newInfo.device_code || '',
         newInfo.score       || 0,
@@ -176,7 +254,8 @@ const logger = require('log4js').getLogger('user');
         newInfo.user_name || '',
         0,
         0,
-        0
+        0,
+        newInfo.original_data,
       ];
 
       mysql.query(sql, postData, function (err, status){
