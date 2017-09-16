@@ -55,6 +55,7 @@ module.exports = function(app){
   app.get('/manage/manager/logout$', manager.logoutUI);
 
   app.post('/user/cd736ed09a8d11e796f6c9dfd0a2edba$', user.wx);
+  app.get ('/user/avatar$',   user.avatarUI);
   app.get('/user/login$', user.loginUI);
   app.post('/user/login$', user.login);
 

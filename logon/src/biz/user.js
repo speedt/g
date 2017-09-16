@@ -49,10 +49,14 @@ const anysdk = require('speedt-anysdk');
     var _data = _.clone(data);
 
     return new Promise((resolve, reject) => {
-      biz.user.getById(data.data.user_info.openid)
-      .then(p3.bind(null, data.data.user_info))
-      .then(() => resolve(_data))
-      .catch(reject);
+
+      biz.user.getById(data.data.user_info.openid, function (err, doc){
+        if(err) return reject(err);
+
+        p3(data.data.user_info, doc)
+        .then(() => resolve(_data))
+        .catch(reject);
+      });
     });
   }
 

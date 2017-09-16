@@ -12,6 +12,17 @@ const utils = require('speedt-utils').utils;
 
 const biz = require('emag.biz');
 
+exports.avatarUI = function(req, res, next){
+  var id = req.query.id;
+
+  biz.user.getById(id, function (err, doc){
+    if(err) return next(err);
+
+    if(!doc || !doc.weixin_avatar) return next(new Error('Not Found'));
+    req.pipe(request(doc.weixin_avatar).on('error', next)).pipe(res);
+  });
+};
+
 (() => {
   function p1(res, token){
     res.send(token);
