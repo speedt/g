@@ -489,22 +489,25 @@ biz.cfg.init(function (err, res){
 
 const amq    = require('speedt-amq');
 
-amq.start({
-  '/queue/front.start':           handle.front.start,
-  '/queue/front.stop':            handle.front.stop,
-  '/queue/channel.open':          handle.channel.open,
-  '/queue/channel.close':         handle.channel.close,
-  '/queue/qq.1015':               handle.channel.money,
-  '/queue/qq.2001':               handle.chat.one_for_one,
-  '/queue/qq.2003':               handle.chat.one_for_group,
-  '/queue/qq.3001':               handle.group.search,
-  '/queue/qq.3005':               handle.group.quit,
-  '/queue/qq.5001':               handle.fishjoy.shot,
-  '/queue/qq.5003.'+ conf.app.id: handle.fishjoy.blast,
-  '/queue/qq.5005':               handle.fishjoy.ready,
-  '/queue/qq.5011.'+ conf.app.id: handle.fishjoy.tool,
-  '/queue/qq.5013':               handle.fishjoy.switch,
-  '/queue/qq.5021':               handle.fishjoy.exchange,
-}, err => {
+var queue = {
+  '/queue/front.start':   handle.front.start,
+  '/queue/front.stop':    handle.front.stop,
+  '/queue/channel.open':  handle.channel.open,
+  '/queue/channel.close': handle.channel.close,
+  '/queue/qq.1015':       handle.channel.money,
+  '/queue/qq.2001':       handle.chat.one_for_one,
+  '/queue/qq.2003':       handle.chat.one_for_group,
+  '/queue/qq.3001':       handle.group.search,
+  '/queue/qq.3005':       handle.group.quit,
+  '/queue/qq.5001':       handle.fishjoy.shot,
+  '/queue/qq.5005':       handle.fishjoy.ready,
+  '/queue/qq.5013':       handle.fishjoy.switch,
+  '/queue/qq.5021':       handle.fishjoy.exchange,
+};
+
+queue['/queue/qq.5003.'+ conf.app.id] = handle.fishjoy.blast;
+queue['/queue/qq.5011.'+ conf.app.id] = handle.fishjoy.tool;
+
+amq.start(queue, err => {
   logger.error('amq error:', err);
 });
