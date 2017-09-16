@@ -21,22 +21,22 @@ module.exports = {
     cdn: 'http://www.foreworld.net/'
   },
   activemq: {
-    host: '127.0.0.1',
-    port: 12613,
+    host: process.env.ACTIVEMQ_HOST || '127.0.0.1',
+    port: process.env.ACTIVEMQ_PORT || 12613,
     user: 'admin',
     password: 'admin',
   },
   mysql: {
     database: 'emag',
-    host: '127.0.0.1',
-    port: 12306,
+    host: process.env.MYSQL_HOST || '127.0.0.1',
+    port: process.env.MYSQL_PORT || 12306,
     user: 'root',
-    password: 'password',
+    password: process.env.MYSQL_PASS || 'password',
     connectionLimit: 50
   },
   redis: {
-    port: 12379,
-    host: '127.0.0.1',
+    host: process.env.REDIS_HOST || '127.0.0.1',
+    port: process.env.REDIS_PORT || 12379,
     password: '123456',
     database: 1
   }
