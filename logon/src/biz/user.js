@@ -197,7 +197,7 @@ const anysdk = require('speedt-anysdk');
     user_info.original_data = JSON.stringify(user_info);
     user_info.id            = user_info.openid;
     user_info.user_name     = user_info.openid;
-    user_info.user_pass     = '654321';
+    user_info.user_pass     = '123456';
     user_info.weixin        = user_info.unionid;
     user_info.weixin_avatar = user_info.headimgurl;
 
@@ -234,6 +234,9 @@ const anysdk = require('speedt-anysdk');
 
     if(warn) return cb(null, warn);
 
+    logger.debug(newInfo)
+    logger.debug('----5');
+
     self.findByName(newInfo.user_name, function (err, doc){
       if(err) return cb(err);
       if(doc) return cb(null, '昵称已经存在');
@@ -269,6 +272,9 @@ const anysdk = require('speedt-anysdk');
         0,
         newInfo.original_data,
       ];
+
+      logger.debug(postData)
+      logger.debug('----6');
 
       mysql.query(sql, postData, function (err, status){
         logger.debug(err);
