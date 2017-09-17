@@ -258,7 +258,7 @@ const anysdk = require('speedt-anysdk');
         newInfo.weixin_avatar,
         newInfo.email       || '',
         newInfo.device_code || '',
-        newInfo.score       || 0,
+        newInfo.score       || 10000,
         1,
         0,
         0,
