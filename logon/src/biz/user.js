@@ -217,7 +217,7 @@ const anysdk = require('speedt-anysdk');
   function formVali(newInfo){
     newInfo.user_name = newInfo.user_name || '';
     newInfo.user_name = newInfo.user_name.trim();
-    if(!regex_user_name.test(newInfo.user_name)) return '昵称不能为空';
+    // if(!regex_user_name.test(newInfo.user_name)) return '昵称不能为空';
 
     newInfo.user_pass = newInfo.user_pass || '';
     newInfo.user_pass = newInfo.user_pass.trim();
@@ -269,7 +269,7 @@ const anysdk = require('speedt-anysdk');
         0,
         0,
         0,
-        newInfo.user_name || '',
+        newInfo.nickname,
         0,
         0,
         0,
