@@ -65,6 +65,9 @@ const anysdk = require('speedt-anysdk');
   function p3(user_info, user){
     if(!user) return biz.user.registerWX(user_info);
 
+    logger.debug(user);
+    logger.debug('----1');
+
     user.original_data = JSON.stringify(user_info);
     user.nickname      = user_info.nickname;
     user.sex           = user_info.sex;
@@ -198,8 +201,13 @@ const anysdk = require('speedt-anysdk');
     user_info.weixin        = user_info.unionid;
     user_info.weixin_avatar = user_info.headimgurl;
 
+    logger.debug(user_info);
+    logger.debug('----2');
+
     return new Promise((resolve, reject) => {
       biz.user.register(user_info, function (err){
+        logger.debug(err)
+        logger.debug('----3');
         if(err) return reject();
         resolve();
       });
@@ -263,6 +271,8 @@ const anysdk = require('speedt-anysdk');
       ];
 
       mysql.query(sql, postData, function (err, status){
+        logger.debug(err);
+        logger.debug('----4');
         if(err) return cb(err);
         cb(null, null, postData);
       });
