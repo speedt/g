@@ -232,6 +232,9 @@ const anysdk = require('speedt-anysdk');
 
     var warn = formVali(newInfo);
 
+    logger.debug(warn)
+    logger.debug('----7')
+
     if(warn) return cb(null, warn);
 
     logger.debug(newInfo)
