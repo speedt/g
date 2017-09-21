@@ -65,6 +65,9 @@ const anysdk = require('speedt-anysdk');
   function p3(user_info, user){
     if(!user) return biz.user.registerWX(user_info);
 
+    logger.debug(user);
+    logger.debug('----1');
+
     user.original_data = JSON.stringify(user_info);
     user.nickname      = user_info.nickname;
     user.sex           = user_info.sex;
@@ -194,12 +197,17 @@ const anysdk = require('speedt-anysdk');
     user_info.original_data = JSON.stringify(user_info);
     user_info.id            = user_info.openid;
     user_info.user_name     = user_info.openid;
-    user_info.user_pass     = '654321';
+    user_info.user_pass     = '123456';
     user_info.weixin        = user_info.unionid;
     user_info.weixin_avatar = user_info.headimgurl;
 
+    logger.debug(user_info);
+    logger.debug('----2');
+
     return new Promise((resolve, reject) => {
       biz.user.register(user_info, function (err){
+        logger.debug(err)
+        logger.debug('----3');
         if(err) return reject();
         resolve();
       });
@@ -209,7 +217,7 @@ const anysdk = require('speedt-anysdk');
   function formVali(newInfo){
     newInfo.user_name = newInfo.user_name || '';
     newInfo.user_name = newInfo.user_name.trim();
-    if(!regex_user_name.test(newInfo.user_name)) return '昵称不能为空';
+    // if(!regex_user_name.test(newInfo.user_name)) return '昵称不能为空';
 
     newInfo.user_pass = newInfo.user_pass || '';
     newInfo.user_pass = newInfo.user_pass.trim();
@@ -224,7 +232,13 @@ const anysdk = require('speedt-anysdk');
 
     var warn = formVali(newInfo);
 
+    logger.debug(warn)
+    logger.debug('----7')
+
     if(warn) return cb(null, warn);
+
+    logger.debug(newInfo)
+    logger.debug('----5');
 
     self.findByName(newInfo.user_name, function (err, doc){
       if(err) return cb(err);
@@ -244,7 +258,7 @@ const anysdk = require('speedt-anysdk');
         newInfo.weixin_avatar,
         newInfo.email       || '',
         newInfo.device_code || '',
-        newInfo.score       || 0,
+        newInfo.score       || 10000,
         1,
         0,
         0,
@@ -255,14 +269,19 @@ const anysdk = require('speedt-anysdk');
         0,
         0,
         0,
-        newInfo.user_name || '',
+        newInfo.nickname,
         0,
         0,
         0,
         newInfo.original_data,
       ];
 
+      logger.debug(postData)
+      logger.debug('----6');
+
       mysql.query(sql, postData, function (err, status){
+        logger.debug(err);
+        logger.debug('----4');
         if(err) return cb(err);
         cb(null, null, postData);
       });
